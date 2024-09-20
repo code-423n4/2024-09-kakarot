@@ -58,7 +58,6 @@ Some of the checklists in this doc are for **C4 (🐺)** and some of them are fo
   - HM awards: $93,400 in USDC
   - Z Pool (Zenith side pool): $45,000 in USDC
   - [Audit Catalyst](https://discord.com/channels/810916927919620096/810929015509483554/1286822018334982155) awards: $12,500 in USDC
-  - QA awards: $0 in USDC*
   - Judge awards: $11,200 in USDC
   - Validator awards: $7,400 in USDC
   - Scout awards: $500 in USDC
@@ -66,8 +65,7 @@ Some of the checklists in this doc are for **C4 (🐺)** and some of them are fo
 - Starts September 27, 2024 20:00 UTC
 - Ends October 25, 2024 20:00 UTC
 
-**QA Awards**
-*Note: While there are no QA awards, QA reports are encouraged as a fallback in the event of no valid HMs.*
+ℹ️ While there are no QA awards, QA reports are encouraged as a fallback in the event of no valid HMs.
   
 **Z Pool and Dark Horse Bonus Pool**
 - This audit includes two [Zenith](https://code4rena.com/zenith) Researchers (ZRs), who are designated as leads for the audit ("LZRs").
