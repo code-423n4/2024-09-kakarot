@@ -65,12 +65,12 @@ Some of the checklists in this doc are for **C4 (🐺)** and some of them are fo
 - Starts September 27, 2024 20:00 UTC
 - Ends October 25, 2024 20:00 UTC
 
-ℹ️ While there are no QA awards, QA reports are encouraged as a fallback in the event of no valid HMs.
-  
 **Z Pool and Dark Horse Bonus Pool**
 - This audit includes two [Zenith](https://code4rena.com/zenith) Researchers (ZRs), who are designated as leads for the audit ("LZRs").
 - Dark Horse wardens earn a portion of the Z pool by outperforming (or tying) the top-ranked LZR auditor based on [Gatherer score](https://docs.code4rena.com/awarding/incentive-model-and-awards#bonuses-for-top-competitors). 
 - For more details, see [Z Pool / Dark Horse bonus pool distribution rules](https://docs.code4rena.com/roles/certified-contributors)
+
+ℹ️ While there are no QA awards, QA reports are encouraged as a fallback in the event of no valid HMs. 
 
 ## Automated Findings / Publicly Known Issues
 
