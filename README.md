@@ -54,19 +54,25 @@ Some of the checklists in this doc are for **C4 (🐺)** and some of them are fo
 ---
 
 # Kakarot audit details
-- Total Prize Pool: $125000 in USDC
-  - HM awards: $125000 in USDC
-  - (remove this line if there is no Analysis pool) Analysis awards: XXX XXX USDC (Notion: Analysis pool)
- 
-  - (remove this line if there is no Bot race) Bot Race awards: XXX XXX USDC (Notion: Bot Race pool)
- 
-  - Judge awards: XXX XXX USDC (Notion: Judge Fee)
-  - Validator awards: XXX XXX USDC (Notion: Triage fee - final)
-  - Scout awards: $500 USDC (Notion: Scout fee - but usually $500 USDC)
-  - (this line can be removed if there is no mitigation) Mitigation Review: XXX XXX USDC (*Opportunity goes to top 3 backstage wardens based on placement in this audit who RSVP.*)
+- Total Prize Pool: $170,000 in USDC
+  - HM awards: $93,400 in USDC
+  - Z Pool (Zenith side pool): $45,000 in USDC
+  - [Audit Catalyst](https://discord.com/channels/810916927919620096/810929015509483554/1286822018334982155) awards: $12,500 in USDC
+  - QA awards: $0 in USDC*
+  - Judge awards: $11,200 in USDC
+  - Validator awards: $7,400 in USDC
+  - Scout awards: $500 in USDC
 - [Read our guidelines for more details](https://docs.code4rena.com/roles/wardens)
-- Starts September 23, 2024 20:00 UTC
-- Ends October 21, 2024 20:00 UTC
+- Starts September 27, 2024 20:00 UTC
+- Ends October 25, 2024 20:00 UTC
+
+**QA Awards**
+*Note: While there are no QA awards, QA reports are encouraged as a fallback in the event of no valid HMs.*
+  
+**Z Pool and Dark Horse Bonus Pool**
+- This audit includes two [Zenith](https://code4rena.com/zenith) Researchers (ZRs), who are designated as leads for the audit ("LZRs").
+- Dark Horse wardens earn a portion of the Z pool by outperforming (or tying) the top-ranked LZR auditor based on [Gatherer score](https://docs.code4rena.com/awarding/incentive-model-and-awards#bonuses-for-top-competitors). 
+- For more details, see [Z Pool / Dark Horse bonus pool distribution rules](https://docs.code4rena.com/roles/certified-contributors)
 
 ## Automated Findings / Publicly Known Issues
 
