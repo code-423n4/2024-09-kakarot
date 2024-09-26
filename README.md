@@ -63,6 +63,102 @@ Any documented difference between Kakarot and Ethereum in the docs https://docs.
 | ----------- | ----------- | ----------- | ----------- |
 | [contracts/folder/sample.sol](https://github.com/code-423n4/repo-name/blob/contracts/folder/sample.sol) | 123 | This contract does XYZ | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
 
+
+> SCOUTS: Hi, Sock here! 💜 
+> Just helping get this set up. Please massage however needed.
+> 
+> Note that there's some interestingness here. Quoting eni from Kakarot:
+> 
+> > crates/evm/src/precompiles/sha256.cairo imports an item from crates/utils/src/math.cairo - Should I consider that math.cairo this file also be in the list, or are any items imported in the included files implicitly in scope? 
+> > 
+> > In our case this is a bit special because these files can contain shared code that is not used in what we want included in scope. 
+> > 
+> > For context:
+> > - Kakarot is the CairoZero implementation
+> > - KakarotSSJ is the Cairo (new) implementation, out of scope
+> > - Because Starknet has introduced new features in new Cairo, we have Cairo classes called by CairoZero contracts, notably for EVM precompile execution
+> > - These classes are based on code defined in the KakarotSSJ repository, and called through code defined in the Kakarot repository.
+
+> My advice was:
+> 
+> > I would highly recommend is to create a detailed readme that specifically enumerates the files and, in these cases, the functions that you would like to include in scope of the auditors’ attention 
+> 
+> So these are based on that. Will defer to your advice on how best to include the specific functions for focus in `kakarot-ssj`
+
+### kakarot 697100af34444b3931c18596cec56c454caf28ed
+
+```
+src/utils/utils.cairo
+src/utils/eth_transaction.cairo
+src/utils/bytes.cairo
+src/utils/maths.cairo
+src/utils/dict.cairo
+src/utils/signature.cairo
+src/utils/rlp.cairo
+src/utils/uint256.cairo
+src/utils/array.cairo
+src/backend/starknet.cairo
+src/kakarot/storages.cairo
+src/kakarot/instructions/push_operations.cairo
+src/kakarot/instructions/stop_and_math_operations.cairo
+src/kakarot/instructions/environmental_information.cairo
+src/kakarot/instructions/sha3.cairo
+src/kakarot/instructions/logging_operations.cairo
+src/kakarot/instructions/block_information.cairo
+src/kakarot/instructions/duplication_operations.cairo
+src/kakarot/instructions/memory_operations.cairo
+src/kakarot/instructions/system_operations.cairo
+src/kakarot/instructions/exchange_operations.cairo
+src/kakarot/account.cairo
+src/kakarot/gas.cairo
+src/kakarot/errors.cairo
+src/kakarot/kakarot.cairo
+src/kakarot/interpreter.cairo
+src/kakarot/precompiles/blake2f.cairo
+src/kakarot/precompiles/ripemd160.cairo
+src/kakarot/precompiles/precompiles.cairo
+src/kakarot/precompiles/precompiles_helpers.cairo
+src/kakarot/precompiles/kakarot_precompiles.cairo
+src/kakarot/precompiles/ec_recover.cairo
+src/kakarot/precompiles/p256verify.cairo
+src/kakarot/precompiles/sha256.cairo
+src/kakarot/precompiles/identity.cairo
+src/kakarot/events.cairo
+src/kakarot/memory.cairo
+src/kakarot/accounts/uninitialized_account.cairo
+src/kakarot/accounts/account_contract.cairo
+src/kakarot/accounts/library.cairo
+src/kakarot/accounts/model.cairo
+src/kakarot/eth_rpc.cairo
+src/kakarot/state.cairo
+src/kakarot/evm.cairo
+src/kakarot/library.cairo
+src/kakarot/constants.cairo
+src/kakarot/model.cairo
+src/kakarot/interfaces/interfaces.cairo
+src/kakarot/stack.cairo
+```
+
+### kakarot-lib c2c7cb400f85c3699a6902946bcf4428d5b4fc61
+
+```
+src/CairoLib.sol
+```
+
+### kakarot-ssj d4a7873d6f071813165ca7c7adb2f029287d14ca
+
+```
+crates/contracts/src/cairo1_helpers.cairo
+crates/evm/src/errors.cairo
+crates/evm/src/precompiles/es_operations/ec_add.cairo
+crates/evm/src/precompiles/ec_operations/ec_mul.cairo
+crates/evm/src/precompiles/ec_operations.cairo
+crates/evm/src/precompiles/sha256.cairo
+crates/utils/src/helpers.cairo -> `fn load_word`
+crates/utils/src/traits/bytes.cairo -> `trait ToBytes<T>`, `trait FromBytes`, `fn pad_right_with_zeroes`
+crates/utils/src/math.cairo -> `trait Bitshift`, `trait Exponentiation`
+```
+
 ### Files out of scope
 ✅ SCOUTS: List files/directories out of scope
 
