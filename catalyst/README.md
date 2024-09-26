@@ -7,19 +7,19 @@ This audit catalyst was prepared by Zellic security researchers to accelerate co
 ## Outline
 
 - [Foundational knowledge](01-foundations.md)
-- Kakarot zkEVM
-- Fundamentals and recommended background
-  - Cairo0
-  - Starknet
-  - EVM
+  - Kakarot zkEVM
+  - Fundamentals and recommended background
+    - Cairo0
+    - Starknet
+    - EVM
 - [Project overview](02-overview.md)
   - Core contract
   - Account contract
   - Account contract deployment
   - Transaction flow
 - [Security considerations](03-security.md)
-- Notable issue classes
-  - EVM equivalence issues
-  - Arithmetic issues
-  - Prover hints without appropriate Cairo constraints
-  - Data packing/unpacking, RLP decoding, and transaction parsing
+  - Notable issue classes
+    - EVM equivalence issues
+    - Arithmetic issues
+    - Prover hints without appropriate Cairo constraints
+    - Data packing/unpacking, RLP decoding, and transaction parsing
