@@ -37,6 +37,10 @@ Any documented difference between Kakarot and Ethereum in the docs https://docs.
 
 [ ⭐️ SPONSORS: add info here ]
 
+## Audit Catalyst
+
+This project includes an [Audit Catalyst](catalyst/README.md) prepared by Zellic security researchers which aims to be an essential read for accelerating your work as an auditor in using your time most effectively in contributing to the security of the project.
+
 ## Links
 
 - **Previous audits:**   https://github.com/kkrt-labs/kakarot/blob/main/audits/Kakarot%20EVM%20-%20Zellic%20Audit%20Report.pdf
