@@ -52,7 +52,7 @@ This project includes an [Audit Catalyst](catalyst/README.md) prepared by [Zelli
   - [Fundamentals and recommended background](#fundamentals-and-recommended-background)
     - [Cairo0](#cairo0)
     - [Starknet](#starknet)
-    - [EVM0](#evm0)
+    - [EVM](#evm)
 - [Project overview](#project-overview)
   - [Core contract](#core-contract)
   - [Account contract](#account-contract)
