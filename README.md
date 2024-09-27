@@ -58,12 +58,12 @@ This audit catalyst was prepared by Zellic security researchers to accelerate co
     - Cairo0
     - Starknet
     - EVM
-- [Project overview](02-overview.md)
+- [Project overview](#project-overview)
   - Core contract
   - Account contract
   - Account contract deployment
   - Transaction flow
-- [Security considerations](03-security.md)
+- [Security considerations](#security-considerations)
   - Notable issue classes
     - EVM equivalence issues
     - Arithmetic issues
