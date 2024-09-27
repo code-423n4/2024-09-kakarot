@@ -52,7 +52,7 @@ This audit catalyst was prepared by Zellic security researchers to accelerate co
 
 ## Outline
 
-- [Foundational knowledge](01-foundations.md)
+- [Foundational knowledge](#foundational-knowledge)
   - Kakarot zkEVM
   - Fundamentals and recommended background
     - Cairo0
