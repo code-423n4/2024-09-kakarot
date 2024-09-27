@@ -1,0 +1,9 @@
+[submodule "kakarot"]
+	path = kakarot
+	url = https://github.com/kkrt-labs/kakarot
+[submodule "kakarot-lib"]
+	path = kakarot-lib
+	url = https://github.com/kkrt-labs/kakarot-lib
+[submodule "kakarot-ssj"]
+	path = kakarot-ssj
+	url = https://github.com/kkrt-labs/kakarot-ssj

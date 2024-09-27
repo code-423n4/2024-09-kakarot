@@ -37,6 +37,10 @@ Any documented difference between Kakarot and Ethereum in the docs https://docs.
 
 [ ⭐️ SPONSORS: add info here ]
 
+## Audit Catalyst
+
+This project includes an [Audit Catalyst](catalyst/README.md) prepared by Zellic security researchers which aims to be an essential read for accelerating your work as an auditor in using your time most effectively in contributing to the security of the project.
+
 ## Links
 
 - **Previous audits:**   https://github.com/kkrt-labs/kakarot/blob/main/audits/Kakarot%20EVM%20-%20Zellic%20Audit%20Report.pdf
@@ -62,6 +66,83 @@ Any documented difference between Kakarot and Ethereum in the docs https://docs.
 | Contract | SLOC | Purpose | Libraries used |  
 | ----------- | ----------- | ----------- | ----------- |
 | [contracts/folder/sample.sol](https://github.com/code-423n4/repo-name/blob/contracts/folder/sample.sol) | 123 | This contract does XYZ | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+
+
+
+
+### kakarot 697100af34444b3931c18596cec56c454caf28ed
+
+```
+src/utils/utils.cairo
+src/utils/eth_transaction.cairo
+src/utils/bytes.cairo
+src/utils/maths.cairo
+src/utils/dict.cairo
+src/utils/signature.cairo
+src/utils/rlp.cairo
+src/utils/uint256.cairo
+src/utils/array.cairo
+src/backend/starknet.cairo
+src/kakarot/storages.cairo
+src/kakarot/instructions/push_operations.cairo
+src/kakarot/instructions/stop_and_math_operations.cairo
+src/kakarot/instructions/environmental_information.cairo
+src/kakarot/instructions/sha3.cairo
+src/kakarot/instructions/logging_operations.cairo
+src/kakarot/instructions/block_information.cairo
+src/kakarot/instructions/duplication_operations.cairo
+src/kakarot/instructions/memory_operations.cairo
+src/kakarot/instructions/system_operations.cairo
+src/kakarot/instructions/exchange_operations.cairo
+src/kakarot/account.cairo
+src/kakarot/gas.cairo
+src/kakarot/errors.cairo
+src/kakarot/kakarot.cairo
+src/kakarot/interpreter.cairo
+src/kakarot/precompiles/blake2f.cairo
+src/kakarot/precompiles/ripemd160.cairo
+src/kakarot/precompiles/precompiles.cairo
+src/kakarot/precompiles/precompiles_helpers.cairo
+src/kakarot/precompiles/kakarot_precompiles.cairo
+src/kakarot/precompiles/ec_recover.cairo
+src/kakarot/precompiles/p256verify.cairo
+src/kakarot/precompiles/sha256.cairo
+src/kakarot/precompiles/identity.cairo
+src/kakarot/events.cairo
+src/kakarot/memory.cairo
+src/kakarot/accounts/uninitialized_account.cairo
+src/kakarot/accounts/account_contract.cairo
+src/kakarot/accounts/library.cairo
+src/kakarot/accounts/model.cairo
+src/kakarot/eth_rpc.cairo
+src/kakarot/state.cairo
+src/kakarot/evm.cairo
+src/kakarot/library.cairo
+src/kakarot/constants.cairo
+src/kakarot/model.cairo
+src/kakarot/interfaces/interfaces.cairo
+src/kakarot/stack.cairo
+```
+
+### kakarot-lib c2c7cb400f85c3699a6902946bcf4428d5b4fc61
+
+```
+src/CairoLib.sol
+```
+
+### kakarot-ssj d4a7873d6f071813165ca7c7adb2f029287d14ca
+
+```
+crates/contracts/src/cairo1_helpers.cairo
+crates/evm/src/errors.cairo
+crates/evm/src/precompiles/es_operations/ec_add.cairo
+crates/evm/src/precompiles/ec_operations/ec_mul.cairo
+crates/evm/src/precompiles/ec_operations.cairo
+crates/evm/src/precompiles/sha256.cairo
+crates/utils/src/helpers.cairo -> `fn load_word`
+crates/utils/src/traits/bytes.cairo -> `trait ToBytes<T>`, `trait FromBytes`, `fn pad_right_with_zeroes`
+crates/utils/src/math.cairo -> `trait Bitshift`, `trait Exponentiation`
+```
 
 ### Files out of scope
 ✅ SCOUTS: List files/directories out of scope
