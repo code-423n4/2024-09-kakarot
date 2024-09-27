@@ -19,19 +19,22 @@
 
 ## Automated Findings / Publicly Known Issues
 
-The 4naly3er report can be found [here](https://github.com/code-423n4/2024-09-kakarot/blob/main/4naly3er-report.md).
 
 _Note for C4 wardens: Anything included in this `Automated Findings / Publicly Known Issues` section is considered a publicly known issue and is ineligible for awards._
 
 • Front-end components
+
 • Infrastructure relating to the project
+
 • Key custody
+
 • The owner of Kakarot has total admin rights to update classes and write values to account storages.
+
 • EVM Gas not being equivalent to Starknet opcode pricing
 
-Any documented difference between Kakarot and Ethereum in the docs https://docs.kakarot.org/differences
 
-✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
+Any documented difference between Kakarot and Ethereum in the docs:  https://docs.kakarot.org/differences
+
 
 # Overview
 
@@ -41,10 +44,233 @@ Any documented difference between Kakarot and Ethereum in the docs https://docs.
 
 This project includes an [Audit Catalyst](catalyst/README.md) prepared by Zellic security researchers which aims to be an essential read for accelerating your work as an auditor in using your time most effectively in contributing to the security of the project.
 
+# Kakarot zkEVM Audit Catalyst
+
+## Purpose
+
+This audit catalyst was prepared by Zellic security researchers to accelerate competitive auditors' efficiency and effectiveness in contributing to the security of Kakarot in anticipation of the September–October 2024 Code4rena competitive audit.
+
+## Outline
+
+- [Foundational knowledge](01-foundations.md)
+  - Kakarot zkEVM
+  - Fundamentals and recommended background
+    - Cairo0
+    - Starknet
+    - EVM
+- [Project overview](02-overview.md)
+  - Core contract
+  - Account contract
+  - Account contract deployment
+  - Transaction flow
+- [Security considerations](03-security.md)
+  - Notable issue classes
+    - EVM equivalence issues
+    - Arithmetic issues
+    - Prover hints without appropriate Cairo constraints
+    - Data packing/unpacking, RLP decoding, and transaction parsing
+
+# Foundational knowledge
+
+## Kakarot zkEVM 
+
+Kakarot is a zkEVM written in [Cairo0](https://docs.cairo-lang.org/hello_cairo/index.html). The project is aiming for deployment on Starknet Mainnet in Q3 2024. However, it is written to be largely agnostic of Starknet-specific characteristics, and should be easily adapted to allow any CairoVM-based ecosystem to run EVM contracts with minimal to no modifications to existing contracts. The design also allows interoperability between contracts running in the zkEVM and native contracts running in the host CairoVM.
+
+## Fundamentals and recommended background
+
+Recommended prerequisites for effectively auditing Kakarot include:
+
+### Cairo0
+**Cairo0**: not to be confused with the more modern, rust-looking Cairo1, Cairo0 is the language used to develop Kakarot. 
+
+It is a relatively low-level language, and due to the atypical constraints posed by the zero-knowledge VM environment in which it runs (the CairoVM), it has several design choices that will be surprising to the uninitiated. Documentation about the language can be found [at this link](https://docs.cairo-lang.org/hello_cairo/index.html). 
+
+At times, you may need to reference the standard library souce code, which can be found [in the starkware-libs/cairo-lang](https://github.com/starkware-libs/cairo-lang/tree/master/src/starkware/cairo/common) Github repo. You may find some concepts to be explained more clearly in the [Cairo1 documentation](https://book.cairo-lang.org/ch00-00-introduction.html). Be careful, however, as Cairo1 is significantly different from Cairo0.
+
+### Starknet
+
+**Starknet**: some aspects of Kakarot are tied to Starknet implementation details. Useful readings include documentation about the [transaction lifecycle](https://docs.starknet.io/architecture-and-concepts/network-architecture/transaction-life-cycle/), [the account abstraction interface](https://docs.starknet.io/architecture-and-concepts/accounts/account-functions/), and about [system calls](https://docs.starknet.io/architecture-and-concepts/smart-contracts/system-calls-cairo1/).
+
+### EVM
+
+**EVM**: An in-depth understanding of the EVM design is a must. Vast resources are available, including:
+- [the Ethereum Yellowpaper](https://ethereum.github.io/yellowpaper/paper.pdf), which originally defined the EVM
+- [evm.codes](https://www.evm.codes/), a handy reference for looking up instruction semantics
+- the [go-ethereum](https://github.com/ethereum/go-ethereum/tree/master/core/vm) and [py-evm](https://github.com/ethereum/py-evm/tree/main/eth/vm) implementations, officially sanctioned by the Ethereum Foundation
+
+# Project overview
+
+Kakarot consists of two major logical components: the core contract and the account contract.
+
+### Core contract
+
+The core contract handles transaction parsing and implements the interpreter which executes EVM bytecode. Only one instance of this contract is deployed.
+
+### Account contract
+
+As the name suggests, the account contract represents EVM accounts, both smart contracts and externally owner accounts (EOAs). Each EVM account is represented by a separate instance of the account contract (or more accurately, by an instance of a proxy contract, see the following section) which stores the state of the account, including the nonce, bytecode, and persistent storage. The account balance is not stored in the account contract, since Kakarot uses a Starknet ERC20 token as its EVM-native currency. 
+
+Note that while executing a transaction, information about the state of an account is usually read from the account contract and cached directly by the core contract. The account state is updated by the core contract only when required -- typically when a transaction has finished processing and changes to the account state need to be committed.
+
+### Account contract deployment
+
+[^NOTE: some aspects of contract deployment changed since the code revision audited by Zellic. This description tries to match the current behavior]
+
+One of the Kakarot design goals is to guarantee a deterministic Starknet address for each Kakarot account contract not influenced by the implementation of the account contract. This allows to upgrade the account contract implementation without affecting the Starknet address of a Kakarot EVM account, and to derive the Starknet address of an account contract before it is even deployed and/or off-chain.
+
+It also allows the core contract to authenticate the source of a call and determine whether it originates from a legitimate Kakarot account contract.
+
+To achieve this, Kakarot deploys an instance of a simple account proxy contract to represent each EVM account. When called, the proxy contract obtains the class hash of the actual account contract from the Kakarot core contract and performs a library call (essentially the equivalent of EVM `delegatecall` for Cairo).
+
+The account proxy is always deployed by the core Kakarot contract, setting `deploy_from_zero=FALSE`. The constructor also receives the EVM address represented by the account contract. Therefore, [the Starknet address of an account (proxy) contract](https://github.com/kkrt-labs/kakarot/blob/221b97671ad7cf21d01ee52ffd48f2b7c018ffc5/src/kakarot/account.cairo#L519) depends on the following variables:
+
+- the class hash of the proxy contract
+- the address of the Kakarot core contract
+- the EVM address represented by the account contract
+
+### Transaction flow
+
+Note: important details of the transaction flow changed since the code revision reviewed by Zellic. This includes changes to the account contract entrypoints and the separation of concerns between the core contract and account contract.
+
+The flow of an EVM transaction into Kakarot is deep and could feel overwhelming at first. This section illustrates the execution path of a normal Ethereum transaction. Some simplifications and omissions needed to be made, but it should give you a good idea of the steps that are taken from the very entry point, right down to the EVM interpreter loop.
+
+The journey starts with the account contract representing the EVM account sending the transaction; to be specific, the first entry point into Kakarot is the [`__default__`](https://github.com/kkrt-labs/kakarot/blob/2b57e602b4380554d09792ff182d9bdc2ad7a619/src/kakarot/accounts/uninitialized_account.cairo#L53) function of the proxy account contract. The proxy retrieves from the core Kakarot contract the class hash of the actual account contract implementation, and library calls if (Starknet equivalent of `delegatecall`ing) forwarding the original calldata. This allows to upgrade the implementation of all account contracts at once. The diagram below shows this flow:
+
+```mermaid
+sequenceDiagram
+    actor U as User<br>(or paymaster)
+    participant AP as AccountProxy
+    participant EVM as Kakarot Core
+    participant A as AccountContract
+
+    U ->> AP: Submit call
+    note over AP: __default__ handles all calls
+
+    AP ->> EVM: get_account_contract_class_hash()
+    EVM ->> AP: Account contract class hash
+    AP ->> A: library_call<br>Forwarding original calldata
+```
+
+In the case of the Kakarot Starknet deployment, the Starknet transaction typically be initiated by a paymaster account, which will fund the Starknet gas required to process the transaction. Note however that anyone can call the account proxy contract to submit an EVM transaction to Kakarot.
+
+The entry point into the account contract is its [`execute_from_outside`](https://github.com/kkrt-labs/kakarot/blob/2b57e602b4380554d09792ff182d9bdc2ad7a619/src/kakarot/accounts/account_contract.cairo#L96) function. This function performs several checks, including verification of the transaction signature, ensuring the transaction was signed by the private key associated to the public key represented by the account.
+
+After verifying the transaction signature, the account contract calls the Kakarot core contract `eth_rpc` module, specifically the [`eth_send_raw_unsigned_tx`](https://github.com/kkrt-labs/kakarot/blob/2b57e602b4380554d09792ff182d9bdc2ad7a619/src/kakarot/eth_rpc.cairo#L239) function. This function verifies several other properties of the transaction (nonce, chain ID, gas parameters, account balance), and invokes [`eth_send_transaction`](https://github.com/kkrt-labs/kakarot/blob/2b57e602b4380554d09792ff182d9bdc2ad7a619/src/kakarot/eth_rpc.cairo#L188).
+
+`eth_send_transaction` performs another critical check, verifying that the Starknet address of the caller matches the expected Starknet address of the sender of the EVM transaction. This guarantees that the caller is a legitimate Kakarot account contract, and therefore that (modulo critical bugs) the transaction signature was validated correctly.
+
+Execution continues in the Kakarot core [`eth_call`](https://github.com/kkrt-labs/kakarot/blob/2b57e602b4380554d09792ff182d9bdc2ad7a619/src/kakarot/library.cairo#L78) function, which retrieves the bytecode of the contract being called from the corresponding contract account.
+
+Finally, execution reaches the actual virtual machine implementation. The interpreter module [`execute`](https://github.com/kkrt-labs/kakarot/blob/2b57e602b4380554d09792ff182d9bdc2ad7a619/src/kakarot/interpreter.cairo#L820) function initializes all the structures needed to store the execution state ([`Message`](https://github.com/kkrt-labs/kakarot/blob/1b920421b354275e48d101a070d7aa3467eed9b6/src/kakarot/interpreter.cairo#L880), [`Stack`](https://github.com/kkrt-labs/kakarot/blob/1b920421b354275e48d101a070d7aa3467eed9b6/src/kakarot/interpreter.cairo#L899), [`Memory`](https://github.com/kkrt-labs/kakarot/blob/1b920421b354275e48d101a070d7aa3467eed9b6/src/kakarot/interpreter.cairo#L900), [`State`](https://github.com/kkrt-labs/kakarot/blob/1b920421b354275e48d101a070d7aa3467eed9b6/src/kakarot/interpreter.cairo#L901), [`EVM`](https://github.com/kkrt-labs/kakarot/blob/1b920421b354275e48d101a070d7aa3467eed9b6/src/kakarot/interpreter.cairo#L912)).
+
+The interpreter loop is implemented using tail-recursion by the [`run`](https://github.com/kkrt-labs/kakarot/blob/2b57e602b4380554d09792ff182d9bdc2ad7a619/src/kakarot/interpreter.cairo#L739) function, and the individual opcodes are handled by the aptly-named [`exec_opcode`](https://github.com/kkrt-labs/kakarot/blob/2b57e602b4380554d09792ff182d9bdc2ad7a619/src/kakarot/interpreter.cairo#L50).
+
+When execution ends (successfully or not) the state of the accounts involved in the transaction need to be updated. This is mostly handled by a call to `Starknet.commit(...)`, which performs some finalization on the state structures and then updates the state persisted in the account contracts (e.g. updating their nonce or storage), and also performs the actual Starknet ERC20 transfers needed to transfer the native currency used by Kakarot between accounts.
+
+The following diagram summarizes the flow of a transaction from account contract to the interpreter loop and back:
+
+```mermaid
+sequenceDiagram
+    actor U as User
+
+    participant A as AccountContract
+
+    box Kakarot Core
+        participant RPC as eth_rpc
+        participant K as Kakarot
+        participant I as Interpreter
+    end
+
+    note over U: Note: proxy flow not represented
+
+    U ->> A: execute_from_outside(...)
+    note over A: Check EVM tx signature
+
+    A ->> RPC: eth_send_raw_unsigned_tx(...)
+    note over RPC: Decode tx<br><br>Check chain ID, nonce, gas params,<br>sender native balance, ...
+
+    RPC ->> RPC: eth_send_transaction(...)
+    note over RPC: Verify caller address<br>(via safe_get_evm_address)
+
+    RPC ->> K: Kakarot.eth_call(...)
+
+    K ->> A: get_bytecode()
+    A ->> K: 
+    
+    K ->> I: Interpreter.execute(...)
+    
+    note over I: Init state structs: (Message, EVM, stack, memory, ...)<br>Init called account if needed
+    
+    loop Interpreter loop
+    Note over I: exec_opcode(...) is the function handling individual opcodes
+    end
+    
+    
+    note over I: State finalization<br>(squash memory dict, apply state balance changes, ...)
+    
+    I ->> K: EVM state:<br>result, stack, memory, gas_used, ...
+    
+    rect rgb(240,240,240)
+        K ->> K: Starknet.commit()
+        note over K: Update accounts nonce
+        note over K: Commit accounts storage
+        note over K: Emit events
+        note over K: Perform ERC20 balance transfers
+    end
+    
+    K ->> A: returndata, success, gas used
+        note over A: Emit transaction_executed event
+    A ->> U: returndata
+```
+# Security considerations
+
+## Notable issue classes
+
+Due to its very nature, issues in Kakarot are more likely to have a high impact. The core contract attack surface is inevitably large, as it includes an entire VM implementation and an EVM transaction parser, necessarily exposed to malicious interactions. There are also limited applicable defense-in-depth measures, since the core contract is a central trusted component controlling all the EVM state.
+
+This section aims to give you some hints about potential severe issues that may be found in Kakarot. While we don't suggest to limit your search to these issue classes, most of these areas have caused issues in the past and are still a source of concern.
+
+### EVM equivalence issues
+
+Kakarot aims for EVM equivalence -- almost any EVM contract should on Kakarot work as intended without modifications at the source (or even bytecode) level. Excluding [some known edge cases](https://docs.kakarot.org/differences/), any difference in behavior between Kakarot and geth is likely to be a valid issue. Kakarot is already tested using the Ethereum Foundation testsuite, ensuring instruction semantics match the EVM spec. Despite being testsuite-compliant, Zellic manual review revealed a few edge cases not covered by the EF testsuite (see findings 3.6 and 3.7). Additionally, Kakarot compatibility extends beyond the VM to how Ethereum transactions are parsed. Zellic manual review found several critical issues in transaction parsing.
+
+Differential fuzzing seems a promising approach for finding differences between geth and Kakarot, we encourage you to try!
+
+### Arithmetic issues
+
+Cairo0 is a relatively low level language with several really unforgiving aspects. It operates on field elements (felts), which can represent values modulo [a 252 bit prime](https://docs.cairo-lang.org/how_cairo_works/cairo_intro.html#field-elements). Arithmetic operations are not checked for overflows or underflows. Since the EVM works with 256 bit integers, Kakarot emulates them by making extensive use of the Uint256 type, which represents a 256 bit number using two 128 bit felts.
+
+The Zellic review found several issues, including:
+
+- overflows and underflows when operating on two felts (e.g. finding 3.13)
+- overflows when converting between Uint256 and felts (e.g. finding 3.10)
+- unsafe Uint256 construction (using felts greater than 128 bits) (e.g. finding 3.17)
+
+### Prover hints without appropriate Cairo constraints
+
+One of the most fundamental concepts in zero knowledge smart contract development is the role of the prover and the verifier. In ZK environments like Starknet, smart contracts define constraints which are -- with a huge simplification -- ultimately translated to mathematical equations. A prover is responsible for providing inputs (proofs) that satisfy these equations. Verifiers maintain the network consensus by checking that the proofs provided by the provers are valid.
+
+Cairo allows to specify [hints](https://docs.cairo-lang.org/how_cairo_works/hints.html), snippets of code that help the prover to generate proofs. Hints are not part of the smart contract, and provers are completely unaware of their existence. A prover can follow a hint, but is not required to do so. Each hint typically requires appropriate assertions to ensure the prover is not acting maliciously.
+
+Zellic audit discovered several issues in this class (findings 3.2, 3.4, 3.8, 3.20), which were patched by the Kakarot team. They also implemented [convenient testing harnesses](https://github.com/kkrt-labs/kakarot/blob/c7896d0f23cb752f02d93743152e597d57086426/tests/utils/hints.py#L36) which allow to replace hints when running the Kakarot testsuite. We encourage you to experiment with it, you may find other similar issues! 
+
+### Data packing/unpacking, RLP decoding, and transaction parsing
+
+Kakarot typically stores bytestreams as an array of felts, efficiently packing multiple bytes (up to 31) into each felt. This includes the bytecode of a contract, or the bytestream of an incoming transaction. When needed, packed bytes felt arrays are unpacked to a longer array of felts where each element represents a single byte.
+
+Once unpacked, transaction data needs to be decoded from [Recursive Length Prefix format (RLP)](https://ethereum.org/en/developers/docs/data-structures-and-encoding/rlp/). The Kakarot RLP decoder and the packing/unpacking routines were sources of multiple issues (including 3.2, 3.3, 3.4, 3.12), especially related to length checks. The most common root causes of high severity issues were integer overflows and the lack of input length checks leading to out of bound reads/TOCTOUs.
+
+Once the input bytestream is decoded into a stream of RLP items, their structure needs to be validated to ensure it represents a valid Ethereum transaction. This is another possible source of issues worth focusing on (ref. Zellic issues 3.5 and 3.16).
+
+
+
+
+
+
+
 ## Links
 
 - **Previous audits:**   https://github.com/kkrt-labs/kakarot/blob/main/audits/Kakarot%20EVM%20-%20Zellic%20Audit%20Report.pdf
-  - ✅ SCOUTS: If there are multiple report links, please format them in a list.
 - **Documentation:** https://docs.kakarot.org/
 - **Website:** https://www.kakarot.org/
 - **X/Twitter:** https://x.com/KakarotZkEvm
@@ -54,137 +280,102 @@ This project includes an [Audit Catalyst](catalyst/README.md) prepared by Zellic
 
 # Scope
 
-[ ✅ SCOUTS: add scoping and technical details here ]
 
 ### Files in scope
-- ✅ This should be completed using the `metrics.md` file
-- ✅ Last row of the table should be Total: SLOC
-- ✅ SCOUTS: Have the sponsor review and and confirm in text the details in the section titled "Scoping Q amp; A"
 
-*For sponsors that don't use the scoping tool: list all files in scope in the table below (along with hyperlinks) -- and feel free to add notes to emphasize areas of focus.*
 
-| Contract | SLOC | Purpose | Libraries used |  
+### Kakarot (Commit: 697100af34444b3931c18596cec56c454caf28ed)
+| Contract | SLOC | Purpose | Libraries used |
 | ----------- | ----------- | ----------- | ----------- |
-| [contracts/folder/sample.sol](https://github.com/code-423n4/repo-name/blob/contracts/folder/sample.sol) | 123 | This contract does XYZ | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
+| [src/utils/utils.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/utils.cairo) |  |  |  |
+| [src/utils/eth_transaction.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/eth_transaction.cairo) |  |  |  |
+| [src/utils/bytes.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/bytes.cairo) |  |  |  |
+| [src/utils/maths.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/maths.cairo) |  |  |  |
+| [src/utils/dict.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/dict.cairo) |  |  |  |
+| [src/utils/signature.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/signature.cairo) |  |  |  |
+| [src/utils/rlp.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/rlp.cairo) |  |  |  |
+| [src/utils/uint256.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/uint256.cairo) |  |  |  |
+| [src/utils/array.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/array.cairo) |  |  |  |
+| [src/backend/starknet.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/backend/starknet.cairo) |  |  |  |
+| [src/kakarot/storages.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/storages.cairo) |  |  |  |
+| [src/kakarot/instructions/push_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/push_operations.cairo) |  |  |  |
+| [src/kakarot/instructions/stop_and_math_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/stop_and_math_operations.cairo) |  |  |  |
+| [src/kakarot/instructions/environmental_information.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/environmental_information.cairo) |  |  |  |
+| [src/kakarot/instructions/sha3.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/sha3.cairo) |  |  |  |
+| [src/kakarot/instructions/logging_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/logging_operations.cairo) |  |  |  |
+| [src/kakarot/instructions/block_information.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/block_information.cairo) |  |  |  |
+| [src/kakarot/instructions/duplication_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/duplication_operations.cairo) |  |  |  |
+| [src/kakarot/instructions/memory_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/memory_operations.cairo) |  |  |  |
+| [src/kakarot/instructions/system_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/system_operations.cairo) |  |  |  |
+| [src/kakarot/instructions/exchange_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/exchange_operations.cairo) |  |  |  |
+| [src/kakarot/account.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/account.cairo) |  |  |  |
+| [src/kakarot/gas.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/gas.cairo) |  |  |  |
+| [src/kakarot/errors.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/errors.cairo) |  |  |  |
+| [src/kakarot/kakarot.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/kakarot.cairo) |  |  |  |
+| [src/kakarot/interpreter.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/interpreter.cairo) |  |  |  |
+| [src/kakarot/precompiles/blake2f.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/blake2f.cairo) |  |  |  |
+| [src/kakarot/precompiles/ripemd160.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/ripemd160.cairo) |  |  |  |
+| [src/kakarot/precompiles/precompiles.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/precompiles.cairo) |  |  |  |
+| [src/kakarot/precompiles/precompiles_helpers.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/precompiles_helpers.cairo) |  |  |  |
+| [src/kakarot/precompiles/kakarot_precompiles.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/kakarot_precompiles.cairo) |  |  |  |
+| [src/kakarot/precompiles/ec_recover.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/ec_recover.cairo) |  |  |  |
+| [src/kakarot/precompiles/p256verify.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/p256verify.cairo) |  |  |  |
+| [src/kakarot/precompiles/sha256.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/sha256.cairo) |  |  |  |
+| [src/kakarot/precompiles/identity.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/identity.cairo) |  |  |  |
+| [src/kakarot/events.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/events.cairo) |  |  |  |
+| [src/kakarot/memory.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/memory.cairo) |  |  |  |
+| [src/kakarot/accounts/uninitialized_account.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/accounts/uninitialized_account.cairo) |  |  |  |
+| [src/kakarot/accounts/account_contract.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/accounts/account_contract.cairo) |  |  |  |
+| [src/kakarot/accounts/library.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/accounts/library.cairo) |  |  |  |
+| [src/kakarot/accounts/model.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/accounts/model.cairo) |  |  |  |
+| [src/kakarot/eth_rpc.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/eth_rpc.cairo) |  |  |  |
+| [src/kakarot/state.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/state.cairo) |  |  |  |
+| [src/kakarot/evm.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/evm.cairo) |  |  |  |
+| [src/kakarot/library.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/library.cairo) |  |  |  |
+| [src/kakarot/constants.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/constants.cairo) |  |  |  |
+| [src/kakarot/model.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/model.cairo) |  |  |  |
+| [src/kakarot/interfaces/interfaces.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/interfaces/interfaces.cairo) |  |  |  |
+| [src/kakarot/stack.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/stack.cairo) |  |  |  |
 
 
 
+### Kakarot-lib (Commit: c2c7cb400f85c3699a6902946bcf4428d5b4fc61)
 
-### kakarot 697100af34444b3931c18596cec56c454caf28ed
+| Contract | SLOC | Purpose | Libraries used |
+| ----------- | ----------- | ----------- | ----------- |
+| [src/CairoLib.sol](https://github.com/kkrt-labs/kakarot-lib/blob/c2c7cb400f85c3699a6902946bcf4428d5b4fc61/src/CairoLib.sol) |  |  |  |
 
-```
-src/utils/utils.cairo
-src/utils/eth_transaction.cairo
-src/utils/bytes.cairo
-src/utils/maths.cairo
-src/utils/dict.cairo
-src/utils/signature.cairo
-src/utils/rlp.cairo
-src/utils/uint256.cairo
-src/utils/array.cairo
-src/backend/starknet.cairo
-src/kakarot/storages.cairo
-src/kakarot/instructions/push_operations.cairo
-src/kakarot/instructions/stop_and_math_operations.cairo
-src/kakarot/instructions/environmental_information.cairo
-src/kakarot/instructions/sha3.cairo
-src/kakarot/instructions/logging_operations.cairo
-src/kakarot/instructions/block_information.cairo
-src/kakarot/instructions/duplication_operations.cairo
-src/kakarot/instructions/memory_operations.cairo
-src/kakarot/instructions/system_operations.cairo
-src/kakarot/instructions/exchange_operations.cairo
-src/kakarot/account.cairo
-src/kakarot/gas.cairo
-src/kakarot/errors.cairo
-src/kakarot/kakarot.cairo
-src/kakarot/interpreter.cairo
-src/kakarot/precompiles/blake2f.cairo
-src/kakarot/precompiles/ripemd160.cairo
-src/kakarot/precompiles/precompiles.cairo
-src/kakarot/precompiles/precompiles_helpers.cairo
-src/kakarot/precompiles/kakarot_precompiles.cairo
-src/kakarot/precompiles/ec_recover.cairo
-src/kakarot/precompiles/p256verify.cairo
-src/kakarot/precompiles/sha256.cairo
-src/kakarot/precompiles/identity.cairo
-src/kakarot/events.cairo
-src/kakarot/memory.cairo
-src/kakarot/accounts/uninitialized_account.cairo
-src/kakarot/accounts/account_contract.cairo
-src/kakarot/accounts/library.cairo
-src/kakarot/accounts/model.cairo
-src/kakarot/eth_rpc.cairo
-src/kakarot/state.cairo
-src/kakarot/evm.cairo
-src/kakarot/library.cairo
-src/kakarot/constants.cairo
-src/kakarot/model.cairo
-src/kakarot/interfaces/interfaces.cairo
-src/kakarot/stack.cairo
-```
 
-### kakarot-lib c2c7cb400f85c3699a6902946bcf4428d5b4fc61
+### Kakarot-ssj (Commit: d4a7873d6f071813165ca7c7adb2f029287d14ca)
+| Contract | SLOC | Purpose | Libraries used |
+| ----------- | ----------- | ----------- | ----------- |
+| [crates/contracts/src/cairo1_helpers.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/contracts/src/cairo1_helpers.cairo) |  |  |  |
+| [crates/evm/src/errors.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/errors.cairo) |  |  |  |
+| [crates/evm/src/precompiles/es_operations/ec_add.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/es_operations/ec_add.cairo) |  |  |  |
+| [crates/evm/src/precompiles/ec_operations/ec_mul.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/ec_operations/ec_mul.cairo) |  |  |  |
+| [crates/evm/src/precompiles/ec_operations.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/ec_operations.cairo) |  |  |  |
+| [crates/evm/src/precompiles/sha256.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/sha256.cairo) |  |  |  |
+| [crates/utils/src/helpers.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/utils/src/helpers.cairo) (Only `fn load_word` in scope) |  |  |  |
+| [crates/utils/src/traits/bytes.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/utils/src/traits/bytes.cairo) (Only `trait ToBytes<T>`, `trait FromBytes`, `fn pad_right_with_zeroes` in scope) |  |  |  |
+| [crates/utils/src/math.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/utils/src/math.cairo) (Only `trait Bitshift`, `trait Exponentiation` in scope) |  |  |  |
 
-```
-src/CairoLib.sol
-```
 
-### kakarot-ssj d4a7873d6f071813165ca7c7adb2f029287d14ca
-
-```
-crates/contracts/src/cairo1_helpers.cairo
-crates/evm/src/errors.cairo
-crates/evm/src/precompiles/es_operations/ec_add.cairo
-crates/evm/src/precompiles/ec_operations/ec_mul.cairo
-crates/evm/src/precompiles/ec_operations.cairo
-crates/evm/src/precompiles/sha256.cairo
-crates/utils/src/helpers.cairo -> `fn load_word`
-crates/utils/src/traits/bytes.cairo -> `trait ToBytes<T>`, `trait FromBytes`, `fn pad_right_with_zeroes`
-crates/utils/src/math.cairo -> `trait Bitshift`, `trait Exponentiation`
-```
 
 ### Files out of scope
-✅ SCOUTS: List files/directories out of scope
+All issues referred [here](https://github.com/kkrt-labs/kakarot/issues) and any files not listed in the scope tables are OOS.
 
 ## Scoping Q &amp; A
 
 ### General questions
-### Are there any ERC20's in scope?: Yes
-
-✅ SCOUTS: If the answer above 👆 is "Yes", please add the tokens below 👇 to the table. Otherwise, update the column with "None".
-
-Specific tokens (please specify)
-Starknet's ETH token - an ERC20 defined in https://github.com/starknet-io/starkgate-contracts
-
-### Are there any ERC777's in scope?: No
-
-✅ SCOUTS: If the answer above 👆 is "Yes", please add the tokens below 👇 to the table. Otherwise, update the column with "None".
-
-
-
-### Are there any ERC721's in scope?: No
-
-✅ SCOUTS: If the answer above 👆 is "Yes", please add the tokens below 👇 to the table. Otherwise, update the column with "None".
-
-
-
-### Are there any ERC1155's in scope?: No
-
-✅ SCOUTS: If the answer above 👆 is "Yes", please add the tokens below 👇 to the table. Otherwise, update the column with "None".
-
-
-
-✅ SCOUTS: Once done populating the table below, please remove all the Q/A data above.
 
 | Question                                | Answer                       |
 | --------------------------------------- | ---------------------------- |
-| ERC20 used by the protocol              |       🖊️             |
-| Test coverage                           | ✅ SCOUTS: Please populate this after running the test coverage command                          |
-| ERC721 used  by the protocol            |            🖊️              |
-| ERC777 used by the protocol             |           🖊️                |
-| ERC1155 used by the protocol            |              🖊️            |
-| Chains the protocol will be deployed on | OtherStarknet  |
+| ERC20 used by the protocol              |       Starknet's ETH token - an ERC20 defined in https://github.com/starknet-io/starkgate-contracts             |
+| Test coverage                           | N/A                         |
+| ERC721 used  by the protocol            |            None              |
+| ERC777 used by the protocol             |           None                |
+| ERC1155 used by the protocol            |              None            |
+| Chains the protocol will be deployed on | Starknet  |
 
 ### ERC20 token behaviors in scope
 
@@ -218,16 +409,8 @@ Starknet's ETH token - an ERC20 defined in https://github.com/starknet-io/starkg
 | Upgradeability (e.g. Uniswap gets upgraded)               |   No  |
 
 
-### EIP compliance checklist
-N/A
-
-✅ SCOUTS: Please format the response above 👆 using the template below👇
-
-| Question                                | Answer                       |
-| --------------------------------------- | ---------------------------- |
-| src/Token.sol                           | ERC20, ERC721                |
-| src/NFT.sol                             | ERC721                       |
-
+### EIP compliance
+None
 
 # Additional context
 
@@ -235,32 +418,25 @@ N/A
 
 - Transactions can only be submitted to Kakarot by the Starknet account corresponding to an EVM account
 
-✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
 
 ## Attack ideas (where to focus for bugs)
 • Underconstrained computations
-• Overflows / Underflows
-• Missing range checks
-• DoS attacks
 
-✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
+• Overflows / Underflows
+
+• Missing range checks
+
+• DoS attacks
 
 ## All trusted roles in the protocol
 
 - Owner of the Kakarot Contract
 
-✅ SCOUTS: Please format the response above 👆 using the template below👇
-
-| Role                                | Description                       |
-| --------------------------------------- | ---------------------------- |
-| Owner                          | Has superpowers                |
-| Administrator                             | Can change fees                       |
-
 ## Describe any novel or unique curve logic or mathematical models implemented in the contracts:
 
 N/A
 
-✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
+
 
 ## Running tests
 
@@ -285,9 +461,6 @@ To run gas benchmarks
 ```bash
 make gas
 ```
-
-✅ SCOUTS: Add a screenshot of your terminal showing the gas report
-✅ SCOUTS: Add a screenshot of your terminal showing the test coverage
 
 ## Miscellaneous
 Employees of Kakarot and employees' family members are ineligible to participate in this audit.
