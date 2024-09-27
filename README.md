@@ -66,7 +66,7 @@ Here's the [key takeaways from the chat transcript](https://gist.github.com/sock
 
 # Kakarot zkEVM Audit Catalyst
 
-This project includes an [Audit Catalyst](catalyst/README.md) prepared by [Zellic](https://zellic.io) security researchers fcremo and jazzy. This is an essential read for accelerating your work as an auditor and using your time most effectively in contributing to the security of the project.
+This project includes an [Audit Catalyst](catalyst/README.md) prepared by [Zellic](https://zellic.io) security researcher fcremo. This is an essential read for accelerating your work as an auditor and using your time most effectively in contributing to the security of the project.
 
 ## Outline
 
