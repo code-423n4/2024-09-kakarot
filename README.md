@@ -280,80 +280,82 @@ Once the input bytestream is decoded into a stream of RLP items, their structure
 
 
 ### Kakarot (Commit: 697100af34444b3931c18596cec56c454caf28ed)
-| Contract | SLOC | Purpose | Libraries used |
-| ----------- | ----------- | ----------- | ----------- |
-| [src/utils/utils.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/utils.cairo) |  |  |  |
-| [src/utils/eth_transaction.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/eth_transaction.cairo) |  |  |  |
-| [src/utils/bytes.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/bytes.cairo) |  |  |  |
-| [src/utils/maths.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/maths.cairo) |  |  |  |
-| [src/utils/dict.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/dict.cairo) |  |  |  |
-| [src/utils/signature.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/signature.cairo) |  |  |  |
-| [src/utils/rlp.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/rlp.cairo) |  |  |  |
-| [src/utils/uint256.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/uint256.cairo) |  |  |  |
-| [src/utils/array.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/array.cairo) |  |  |  |
-| [src/backend/starknet.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/backend/starknet.cairo) |  |  |  |
-| [src/kakarot/storages.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/storages.cairo) |  |  |  |
-| [src/kakarot/instructions/push_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/push_operations.cairo) |  |  |  |
-| [src/kakarot/instructions/stop_and_math_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/stop_and_math_operations.cairo) |  |  |  |
-| [src/kakarot/instructions/environmental_information.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/environmental_information.cairo) |  |  |  |
-| [src/kakarot/instructions/sha3.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/sha3.cairo) |  |  |  |
-| [src/kakarot/instructions/logging_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/logging_operations.cairo) |  |  |  |
-| [src/kakarot/instructions/block_information.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/block_information.cairo) |  |  |  |
-| [src/kakarot/instructions/duplication_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/duplication_operations.cairo) |  |  |  |
-| [src/kakarot/instructions/memory_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/memory_operations.cairo) |  |  |  |
-| [src/kakarot/instructions/system_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/system_operations.cairo) |  |  |  |
-| [src/kakarot/instructions/exchange_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/exchange_operations.cairo) |  |  |  |
-| [src/kakarot/account.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/account.cairo) |  |  |  |
-| [src/kakarot/gas.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/gas.cairo) |  |  |  |
-| [src/kakarot/errors.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/errors.cairo) |  |  |  |
-| [src/kakarot/kakarot.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/kakarot.cairo) |  |  |  |
-| [src/kakarot/interpreter.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/interpreter.cairo) |  |  |  |
-| [src/kakarot/precompiles/blake2f.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/blake2f.cairo) |  |  |  |
-| [src/kakarot/precompiles/ripemd160.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/ripemd160.cairo) |  |  |  |
-| [src/kakarot/precompiles/precompiles.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/precompiles.cairo) |  |  |  |
-| [src/kakarot/precompiles/precompiles_helpers.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/precompiles_helpers.cairo) |  |  |  |
-| [src/kakarot/precompiles/kakarot_precompiles.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/kakarot_precompiles.cairo) |  |  |  |
-| [src/kakarot/precompiles/ec_recover.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/ec_recover.cairo) |  |  |  |
-| [src/kakarot/precompiles/p256verify.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/p256verify.cairo) |  |  |  |
-| [src/kakarot/precompiles/sha256.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/sha256.cairo) |  |  |  |
-| [src/kakarot/precompiles/identity.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/identity.cairo) |  |  |  |
-| [src/kakarot/events.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/events.cairo) |  |  |  |
-| [src/kakarot/memory.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/memory.cairo) |  |  |  |
-| [src/kakarot/accounts/uninitialized_account.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/accounts/uninitialized_account.cairo) |  |  |  |
-| [src/kakarot/accounts/account_contract.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/accounts/account_contract.cairo) |  |  |  |
-| [src/kakarot/accounts/library.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/accounts/library.cairo) |  |  |  |
-| [src/kakarot/accounts/model.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/accounts/model.cairo) |  |  |  |
-| [src/kakarot/eth_rpc.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/eth_rpc.cairo) |  |  |  |
-| [src/kakarot/state.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/state.cairo) |  |  |  |
-| [src/kakarot/evm.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/evm.cairo) |  |  |  |
-| [src/kakarot/library.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/library.cairo) |  |  |  |
-| [src/kakarot/constants.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/constants.cairo) |  |  |  |
-| [src/kakarot/model.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/model.cairo) |  |  |  |
-| [src/kakarot/interfaces/interfaces.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/interfaces/interfaces.cairo) |  |  |  |
-| [src/kakarot/stack.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/stack.cairo) |  |  |  |
+| Contract                                                                                                                                                                                                | SLOC      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| [src/utils/utils.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/utils.cairo)                                                                       | 815       |
+| [src/utils/eth_transaction.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/eth_transaction.cairo)                                                   | 247       |
+| [src/utils/bytes.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/bytes.cairo)                                                                       | 237       |
+| [src/utils/maths.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/maths.cairo)                                                                       | 21        |
+| [src/utils/dict.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/dict.cairo)                                                                         | 104       |
+| [src/utils/signature.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/signature.cairo)                                                               | 29        |
+| [src/utils/rlp.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/rlp.cairo)                                                                           | 86        |
+| [src/utils/uint256.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/uint256.cairo)                                                                   | 282       |
+| [src/utils/array.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/array.cairo)                                                                       | 92        |
+| [src/backend/starknet.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/backend/starknet.cairo)                                                             | 233       |
+| [src/kakarot/storages.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/storages.cairo)                                                             | 35        |
+| [src/kakarot/instructions/push_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/push_operations.cairo)                     | 32        |
+| [src/kakarot/instructions/stop_and_math_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/stop_and_math_operations.cairo)   | 416       |
+| [src/kakarot/instructions/environmental_information.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/environmental_information.cairo) | 380       |
+| [src/kakarot/instructions/sha3.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/sha3.cairo)                                           | 67        |
+| [src/kakarot/instructions/logging_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/logging_operations.cairo)               | 59        |
+| [src/kakarot/instructions/block_information.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/block_information.cairo)                 | 159       |
+| [src/kakarot/instructions/duplication_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/duplication_operations.cairo)       | 22        |
+| [src/kakarot/instructions/memory_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/memory_operations.cairo)                 | 432       |
+| [src/kakarot/instructions/system_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/system_operations.cairo)                 | 983       |
+| [src/kakarot/instructions/exchange_operations.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/instructions/exchange_operations.cairo)             | 24        |
+| [src/kakarot/account.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/account.cairo)                                                               | 602       |
+| [src/kakarot/gas.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/gas.cairo)                                                                       | 143       |
+| [src/kakarot/errors.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/errors.cairo)                                                                 | 750       |
+| [src/kakarot/kakarot.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/kakarot.cairo)                                                               | 258       |
+| [src/kakarot/interpreter.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/interpreter.cairo)                                                       | 990       |
+| [src/kakarot/precompiles/blake2f.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/blake2f.cairo)                                       | 434       |
+| [src/kakarot/precompiles/ripemd160.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/ripemd160.cairo)                                   | 841       |
+| [src/kakarot/precompiles/precompiles.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/precompiles.cairo)                               | 180       |
+| [src/kakarot/precompiles/precompiles_helpers.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/precompiles_helpers.cairo)               | 29        |
+| [src/kakarot/precompiles/kakarot_precompiles.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/kakarot_precompiles.cairo)               | 97        |
+| [src/kakarot/precompiles/ec_recover.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/ec_recover.cairo)                                 | 95        |
+| [src/kakarot/precompiles/p256verify.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/p256verify.cairo)                                 | 40        |
+| [src/kakarot/precompiles/sha256.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/sha256.cairo)                                         | 42        |
+| [src/kakarot/precompiles/identity.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/precompiles/identity.cairo)                                     | 22        |
+| [src/kakarot/events.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/events.cairo)                                                                 | 7         |
+| [src/kakarot/memory.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/memory.cairo)                                                                 | 183       |
+| [src/kakarot/accounts/uninitialized_account.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/accounts/uninitialized_account.cairo)                 | 66        |
+| [src/kakarot/accounts/account_contract.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/accounts/account_contract.cairo)                           | 239       |
+| [src/kakarot/accounts/library.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/accounts/library.cairo)                                             | 445       |
+| [src/kakarot/accounts/model.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/accounts/model.cairo)                                                 | 18        |
+| [src/kakarot/eth_rpc.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/eth_rpc.cairo)                                                               | 218       |
+| [src/kakarot/state.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/state.cairo)                                                                   | 385       |
+| [src/kakarot/evm.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/evm.cairo)                                                                       | 272       |
+| [src/kakarot/library.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/library.cairo)                                                               | 307       |
+| [src/kakarot/constants.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/constants.cairo)                                                           | 1293      |
+| [src/kakarot/model.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/model.cairo)                                                                   | 126       |
+| [src/kakarot/interfaces/interfaces.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/interfaces/interfaces.cairo)                                   | 172       |
+| [src/kakarot/stack.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/kakarot/stack.cairo)                                                                   | 91        |
+| **TOTAL SLOC**                                                                                                                                                                                           | **13100** |
 
 
 
 ### Kakarot-lib (Commit: c2c7cb400f85c3699a6902946bcf4428d5b4fc61)
 
-| Contract | SLOC | Purpose | Libraries used |
-| ----------- | ----------- | ----------- | ----------- |
-| [src/CairoLib.sol](https://github.com/kkrt-labs/kakarot-lib/blob/c2c7cb400f85c3699a6902946bcf4428d5b4fc61/src/CairoLib.sol) |  |  |  |
+| Contract                                                                                                                    | SLOC    |
+| --------------------------------------------------------------------------------------------------------------------------- | ------- |
+| [src/CairoLib.sol](https://github.com/kkrt-labs/kakarot-lib/blob/c2c7cb400f85c3699a6902946bcf4428d5b4fc61/src/CairoLib.sol) | 124     |
+| **TOTAL SLOC**                                                                                                               | **124** |
 
 
 ### Kakarot-ssj (Commit: d4a7873d6f071813165ca7c7adb2f029287d14ca)
-| Contract | SLOC | Purpose | Libraries used |
-| ----------- | ----------- | ----------- | ----------- |
-| [crates/contracts/src/cairo1_helpers.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/contracts/src/cairo1_helpers.cairo) |  |  |  |
-| [crates/evm/src/errors.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/errors.cairo) |  |  |  |
-| [crates/evm/src/precompiles/ec_operations/ec_add.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/ec_operations/ec_add.cairo) |  |  |  |
-| [crates/evm/src/precompiles/ec_operations/ec_mul.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/ec_operations/ec_mul.cairo) |  |  |  |
-| [crates/evm/src/precompiles/ec_operations.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/ec_operations.cairo) |  |  |  |
-| [crates/evm/src/precompiles/sha256.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/sha256.cairo) |  |  |  |
-| [crates/utils/src/helpers.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/utils/src/helpers.cairo) (Only `fn load_word` in scope) |  |  |  |
-| [crates/utils/src/traits/bytes.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/utils/src/traits/bytes.cairo) (Only `trait ToBytes<T>`, `trait FromBytes`, `fn pad_right_with_zeroes` in scope) |  |  |  |
-| [crates/utils/src/math.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/utils/src/math.cairo) (Only `trait Bitshift`, `trait Exponentiation` in scope) |  |  |  |
-
+| Contract                                                                                                                                                                                                                                            | SLOC     |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| [crates/contracts/src/cairo1_helpers.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/contracts/src/cairo1_helpers.cairo)                                                                       | 134      |
+| [crates/evm/src/errors.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/errors.cairo)                                                                                                   | 86       |
+| [crates/evm/src/precompiles/es_operations/ec_add.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/es_operations/ec_add.cairo)                                               | 142      |
+| [crates/evm/src/precompiles/ec_operations/ec_mul.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/ec_operations/ec_mul.cairo)                                               | 115      |
+| [crates/evm/src/precompiles/ec_operations.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/ec_operations.cairo)                                                             | 72       |
+| [crates/evm/src/precompiles/sha256.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/sha256.cairo)                                                                           | 141      |
+| [crates/utils/src/helpers.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/utils/src/helpers.cairo) (Only `fn load_word` in scope)                                                              | 230      |
+| [crates/utils/src/traits/bytes.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/utils/src/traits/bytes.cairo) (Only `trait ToBytes<T>`, `trait FromBytes`, `fn pad_right_with_zeroes` in scope) | 552      |
+| [crates/utils/src/math.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/utils/src/math.cairo) (Only `trait Bitshift`, `trait Exponentiation` in scope)                                          | 451      |
+| **TOTAL SLOC**                                                                                                                                                                                                                                       | **1923** |
 
 
 ### Files out of scope
