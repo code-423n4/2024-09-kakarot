@@ -265,7 +265,7 @@ Once the input bytestream is decoded into a stream of RLP items, their structure
 
 ## Links
 
-- **Previous audits:**   https://github.com/kkrt-labs/kakarot/blob/main/audits/Kakarot%20EVM%20-%20Zellic%20Audit%20Report.pdf
+- **Previous audits:**   [Zellic Audit Report](https://github.com/kkrt-labs/kakarot/blob/main/audits/Kakarot%20EVM%20-%20Zellic%20Audit%20Report.pdf)
 - **Documentation:** https://docs.kakarot.org/
 - **Website:** https://www.kakarot.org/
 - **X/Twitter:** https://x.com/KakarotZkEvm
@@ -437,27 +437,50 @@ N/A
 
 ## Running tests
 
-Follow instructions in the README.md and CONTRIBUTING.md guide for environment setup.
+Follow the instructions in the [README.md](https://github.com/code-423n4/2024-09-kakarot.git) and [CONTRIBUTING.md](https://github.com/code-423n4/2024-09-kakarot.git) guide for environment setup. 
 
-✅ SCOUTS: Please format the response above 👆 using the template below👇
+*** Make sure [Rust 1.82 Beta release](https://releases.rs/docs/1.82.0/) is installed and in use. ***
+
+* Clone the repo;
+```bash
+git clone --recurse https://github.com/code-423n4/2024-09-kakarot.git
+```
+#### For Kakarot (Commit: 697100af34444b3931c18596cec56c454caf28ed)
 
 ```bash
-git clone https://github.com/code-423n4/2023-08-arbitrum
-git submodule update --init --recursive
-cd governance
-foundryup
-make install
+cd 2024-09-kakarot/kakarot
+make setup
+make install-katana
+make build-sol
+cp .env.example .env
+make run-katana 
+make test
+```
+
+```bash
+curl -L https://install.astral.sh | bash
 make build
-make sc-election-test
+make build-sol
+make run-nodes
+make test-unit
 ```
-To run code coverage
+
+#### For Kakarot-ssj (Commit: d4a7873d6f071813165ca7c7adb2f029287d14ca)
+
+* Make sure the environment setup is completed as referred [here](https://github.com/kkrt-labs/kakarot-ssj/tree/d4a7873d6f071813165ca7c7adb2f029287d14ca)
+
 ```bash
-make coverage
+cd kakarot-ssj
+scarb build
+scarb test
 ```
-To run gas benchmarks
+
+* For any Foundry tests, `cd` to the individual commit folder and;
 ```bash
-make gas
+forge build
+forge test
 ```
+
 
 ## Miscellaneous
 Employees of Kakarot and employees' family members are ineligible to participate in this audit.
