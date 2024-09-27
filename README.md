@@ -19,56 +19,51 @@
 
 ## Automated Findings / Publicly Known Issues
 
-
 _Note for C4 wardens: Anything included in this `Automated Findings / Publicly Known Issues` section is considered a publicly known issue and is ineligible for awards._
 
 • Front-end components
-
 • Infrastructure relating to the project
-
 • Key custody
-
 • The owner of Kakarot has total admin rights to update classes and write values to account storages.
-
 • EVM Gas not being equivalent to Starknet opcode pricing
 
-
-Any documented difference between Kakarot and Ethereum in the docs:  https://docs.kakarot.org/differences
+Any documented difference between Kakarot and Ethereum in the docs: https://docs.kakarot.org/differences
 
 
 # Overview
 
 [ ⭐️ SPONSORS: add info here ]
 
-## Audit Catalyst
 
-This project includes an [Audit Catalyst](catalyst/README.md) prepared by Zellic security researchers which aims to be an essential read for accelerating your work as an auditor in using your time most effectively in contributing to the security of the project.
+# Code Walkthrough
+
+The Kakarot Labs team gave a code walkthrough, which was recorded and will be published and linked here as soon as it's been edited. 
+
+Here's the [key takeaways from the chat transcript](https://gist.github.com/sockdrawermoney/21a55c3775dfef25c64c0e9a770b0774) <-- lots of links in there.
 
 # Kakarot zkEVM Audit Catalyst
 
-## Purpose
-
-This audit catalyst was prepared by Zellic security researchers to accelerate competitive auditors' efficiency and effectiveness in contributing to the security of Kakarot in anticipation of the September–October 2024 Code4rena competitive audit.
+This project includes an [Audit Catalyst](catalyst/README.md) prepared by [Zellic](https://zellic.io) security researchers fcremo and jazzy. This is an essential read for accelerating your work as an auditor and using your time most effectively in contributing to the security of the project.
 
 ## Outline
 
 - [Foundational knowledge](#foundational-knowledge)
-  - Kakarot zkEVM
-  - Fundamentals and recommended background
-    - Cairo0
-    - Starknet
-    - EVM
+  - [Kakarot zkEVM](#kakarot-zkevm)
+  - [Fundamentals and recommended background](#fundamentals-and-recommended-background)
+    - [Cairo0](#cairo0)
+    - [Starknet](#starknet)
+    - [EVM0](#evm0)
 - [Project overview](#project-overview)
-  - Core contract
-  - Account contract
-  - Account contract deployment
-  - Transaction flow
+  - [Core contract](#core-contract)
+  - [Account contract](#account-contract)
+  - [Account contract deployment](#account-contract-deployment)
+  - [Transaction flow](#transaction-flow)
 - [Security considerations](#security-considerations)
-  - Notable issue classes
-    - EVM equivalence issues
-    - Arithmetic issues
-    - Prover hints without appropriate Cairo constraints
-    - Data packing/unpacking, RLP decoding, and transaction parsing
+  - [Notable issue classes](#notable-issue-classes)
+    - [EVM equivalence issues](#evm-equivalence-issues)
+    - [Arithmetic issues](#arithmetic-issues)
+    - [Prover hints without appropriate Cairo constraints](#prover-hints-without-appropriate-cairo-constraints)
+    - [Data packing/unpacking, RLP decoding, and transaction parsing](#data-packingunpacking-rlp-decoding-and-transaction-parsing)
 
 # Foundational knowledge
 
