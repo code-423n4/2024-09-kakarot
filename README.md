@@ -250,7 +250,7 @@ The Zellic review found several issues, including:
 
 One of the most fundamental concepts in zero knowledge smart contract development is the role of the prover and the verifier. In ZK environments like Starknet, smart contracts define constraints which are -- with a huge simplification -- ultimately translated to mathematical equations. A prover is responsible for providing inputs (proofs) that satisfy these equations. Verifiers maintain the network consensus by checking that the proofs provided by the provers are valid.
 
-Cairo allows to specify [hints](https://docs.cairo-lang.org/how_cairo_works/hints.html), snippets of code that help the prover to generate proofs. Hints are not part of the smart contract, and provers are completely unaware of their existence. A prover can follow a hint, but is not required to do so. Each hint typically requires appropriate assertions to ensure the prover is not acting maliciously.
+Cairo allows to specify [hints](https://docs.cairo-lang.org/how_cairo_works/hints.html), snippets of code that help the prover to generate proofs. Hints are not part of the smart contract, and verifiers are completely unaware of their existence. A prover can follow a hint, but is not required to do so. Each hint typically requires appropriate assertions to ensure the prover is not acting maliciously.
 
 Zellic audit discovered several issues in this class (findings 3.2, 3.4, 3.8, 3.20), which were patched by the Kakarot team. They also implemented [convenient testing harnesses](https://github.com/kkrt-labs/kakarot/blob/c7896d0f23cb752f02d93743152e597d57086426/tests/utils/hints.py#L36) which allow to replace hints when running the Kakarot testsuite. We encourage you to experiment with it, you may find other similar issues! 
 
