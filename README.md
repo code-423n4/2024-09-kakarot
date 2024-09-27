@@ -13,7 +13,7 @@
 **Z Pool and Dark Horse Bonus Pool**
 - This audit includes two [Zenith](https://code4rena.com/zenith) Researchers (ZRs), who are designated as leads for the audit ("LZRs").
 - Dark Horse wardens earn a portion of the Z pool by outperforming (or tying) the top-ranked LZR auditor based on [Gatherer score](https://docs.code4rena.com/awarding/incentive-model-and-awards#bonuses-for-top-competitors). 
-- For more details, see [Z Pool / Dark Horse bonus pool distribution rules](https://docs.code4rena.com/roles/certified-contributors)
+- For more details, see [Z Pool / Dark Horse bonus pool distribution rules](https://docs.code4rena.com/awarding/incentive-model-and-awards#z-pools-and-dark-horse-bonuses)
 
 ℹ️ While there are no QA awards, QA reports are encouraged as a fallback in the event of no valid HMs. 
 
