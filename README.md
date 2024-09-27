@@ -32,8 +32,31 @@ Any documented difference between Kakarot and Ethereum in the docs: https://docs
 
 # Overview
 
-[ ⭐️ SPONSORS: add info here ]
+Kakarot is a provable EVM built on the Cairo ZK-VM, Starkware's Turing complete and efficient ZK-VM.
 
+The natural first use case for Kakarot is to be embedded into Starknet, thus making it a MultiVM environment. Starknet effectively becomes EVM compatible; allowing the use of both CairoVM and EVM for builders & users. Additionally, Kakarot Labs strives to push more innovations to the L2 space, participating in governance initiative such as Rollup Improvement Proposals (RIPs) and Rollcall.
+
+For the Starknet community, Kakarot removes any kind of EVM-compatibility barrier to developers seeking to take advantage of Starknet’s scalability. For the broader Ethereum ecosystem, Kakarot accelerates the adoption of provable compute.
+
+For developers on Starknet, this means being able to use EVM programming languages and tools in addition to existing tools on Starknet, therefore vastly expanding their options. Additionally, developers who want to launch an EVM appchain (a chain tailored to their specific app) with Kakarot benefit from the stack being highly auditable, maintainable, and modular!
+
+For EVM native users, this means both access to faster and cheaper transactions on Starknet, as well as better interoperability with the broader Ethereum ecosystem.
+
+## Kakarot is not a rollup
+
+  * Kakarot is not an appchain or a blockchain. Kakarot Labs is deploying an EVM environment on Starknet Mainnet. This EVM environment is fully enshrined & embedded into Starknet L2. Kakarot transactions and blocks are abstractions over Starknet transactions and block under the hood.
+  * Kakarot is not an L3, nor an L2. Kakarot Labs is launching an EVM runtime inside Starknet. Long-term, Kakarot Labs will rename the Kakarot initiative on Starknet: "Starknet EVM" to reduce confusion.
+  * Kakarot is not privacy preserving. Zero-knowledge technologies can be used for two (non-excluding) purposes, Scaling or Privacy. The underlying proof system used by Cairo is not privacy-preserving.
+
+## Kakarot is an implementation of the EVM in Cairo
+
+Under the hood, Kakarot's core EVM is an implementation of the EVM instruction set in Cairo.
+
+> Cairo is the first Turing-complete language for creating provable programs for general computation.
+
+Cairo is like any a programming language, but made for writing provable software. It means that whatever is written in Cairo is, by design, zk. Note that we use the term zk here in the sense that execution of provable software is "ZK-verifiable", not that it is privacy preserving, or so-called "zero-knowledge". Using Cairo means that we leverage the power of STARKs without having to think about it, it sort of "comes for free" just by using this language and not another high-level language, such as Rust or Python.
+
+Kakarot on Starknet is composed of three parts: the Core EVM in Cairo, an RPC layer (RPC server and EVM indexer) and an underlying host CairoVM client (e.g. Starknet mainnet).
 
 # Code Walkthrough
 
