@@ -351,7 +351,7 @@ Once the input bytestream is decoded into a stream of RLP items, their structure
 | ----------- | ----------- | ----------- | ----------- |
 | [crates/contracts/src/cairo1_helpers.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/contracts/src/cairo1_helpers.cairo) |  |  |  |
 | [crates/evm/src/errors.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/errors.cairo) |  |  |  |
-| [crates/evm/src/precompiles/es_operations/ec_add.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/es_operations/ec_add.cairo) |  |  |  |
+| [crates/evm/src/precompiles/ec_operations/ec_add.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/ec_operations/ec_add.cairo) |  |  |  |
 | [crates/evm/src/precompiles/ec_operations/ec_mul.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/ec_operations/ec_mul.cairo) |  |  |  |
 | [crates/evm/src/precompiles/ec_operations.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/ec_operations.cairo) |  |  |  |
 | [crates/evm/src/precompiles/sha256.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/evm/src/precompiles/sha256.cairo) |  |  |  |
