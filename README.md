@@ -68,26 +68,7 @@ This project includes an [Audit Catalyst](catalyst/README.md) prepared by Zellic
 | [contracts/folder/sample.sol](https://github.com/code-423n4/repo-name/blob/contracts/folder/sample.sol) | 123 | This contract does XYZ | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
 
 
-> SCOUTS: Hi, Sock here! 💜 
-> Just helping get this set up. Please massage however needed.
-> 
-> Note that there's some interestingness here. Quoting eni from Kakarot:
-> 
-> > crates/evm/src/precompiles/sha256.cairo imports an item from crates/utils/src/math.cairo - Should I consider that math.cairo this file also be in the list, or are any items imported in the included files implicitly in scope? 
-> > 
-> > In our case this is a bit special because these files can contain shared code that is not used in what we want included in scope. 
-> > 
-> > For context:
-> > - Kakarot is the CairoZero implementation
-> > - KakarotSSJ is the Cairo (new) implementation, out of scope
-> > - Because Starknet has introduced new features in new Cairo, we have Cairo classes called by CairoZero contracts, notably for EVM precompile execution
-> > - These classes are based on code defined in the KakarotSSJ repository, and called through code defined in the Kakarot repository.
 
-> My advice was:
-> 
-> > I would highly recommend is to create a detailed readme that specifically enumerates the files and, in these cases, the functions that you would like to include in scope of the auditors’ attention 
-> 
-> So these are based on that. Will defer to your advice on how best to include the specific functions for focus in `kakarot-ssj`
 
 ### kakarot 697100af34444b3931c18596cec56c454caf28ed
 
