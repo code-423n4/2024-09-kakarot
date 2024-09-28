@@ -174,7 +174,7 @@ When execution ends (successfully or not) the state of the accounts involved in 
 
 The following diagram summarizes the flow of a transaction from account contract to the interpreter loop and back:
 
-<img width="1154" alt="Screenshot 2024-09-27 at 4 52 49 PM" src="https://github.com/user-attachments/assets/5fa3bbfc-b605-48b3-b951-bc8a069e82d4">
+![](https://github.com/user-attachments/assets/5fa3bbfc-b605-48b3-b951-bc8a069e82d4")
 
 # Security considerations
 
