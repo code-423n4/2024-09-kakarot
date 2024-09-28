@@ -68,26 +68,6 @@ Here's the [key takeaways from the chat transcript](https://gist.github.com/sock
 
 This project includes an [Audit Catalyst](https://github.com/code-423n4/2024-09-kakarot/blob/main/catalyst/README.md) prepared by [Zellic](https://zellic.io) security researcher fcremo. This is an essential read for accelerating your work as an auditor and using your time most effectively in contributing to the security of the project.
 
-## Outline
-
-- [Foundational knowledge](#foundational-knowledge)
-  - [Kakarot zkEVM](#kakarot-zkevm)
-  - [Fundamentals and recommended background](#fundamentals-and-recommended-background)
-    - [Cairo0](#cairo0)
-    - [Starknet](#starknet)
-    - [EVM](#evm)
-- [Project overview](#project-overview)
-  - [Core contract](#core-contract)
-  - [Account contract](#account-contract)
-  - [Account contract deployment](#account-contract-deployment)
-  - [Transaction flow](#transaction-flow)
-- [Security considerations](#security-considerations)
-  - [Notable issue classes](#notable-issue-classes)
-    - [EVM equivalence issues](#evm-equivalence-issues)
-    - [Arithmetic issues](#arithmetic-issues)
-    - [Prover hints without appropriate Cairo constraints](#prover-hints-without-appropriate-cairo-constraints)
-    - [Data packing/unpacking, RLP decoding, and transaction parsing](#data-packingunpacking-rlp-decoding-and-transaction-parsing)
-
 # Foundational knowledge
 
 ## Kakarot zkEVM 
