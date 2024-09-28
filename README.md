@@ -154,7 +154,7 @@ The flow of an EVM transaction into Kakarot is deep and could feel overwhelming 
 
 The journey starts with the account contract representing the EVM account sending the transaction; to be specific, the first entry point into Kakarot is the [`__default__`](https://github.com/kkrt-labs/kakarot/blob/2b57e602b4380554d09792ff182d9bdc2ad7a619/src/kakarot/accounts/uninitialized_account.cairo#L53) function of the proxy account contract. The proxy retrieves from the core Kakarot contract the class hash of the actual account contract implementation, and library calls if (Starknet equivalent of `delegatecall`ing) forwarding the original calldata. This allows to upgrade the implementation of all account contracts at once. The diagram below shows this flow:
 
-![](https://github.com/code-423n4/2024-09-kakarot/blob/main/diagram-1.png?raw=true)
+![](https://raw.githubusercontent.com/code-423n4/2024-09-kakarot/refs/heads/main/diagram-1.png)
 
 In the case of the Kakarot Starknet deployment, the Starknet transaction typically be initiated by a paymaster account, which will fund the Starknet gas required to process the transaction. Note however that anyone can call the account proxy contract to submit an EVM transaction to Kakarot.
 
@@ -174,7 +174,7 @@ When execution ends (successfully or not) the state of the accounts involved in 
 
 The following diagram summarizes the flow of a transaction from account contract to the interpreter loop and back:
 
-![](https://github.com/code-423n4/2024-09-kakarot/blob/main/diagram-2.png?raw=true)
+![](https://raw.githubusercontent.com/code-423n4/2024-09-kakarot/refs/heads/main/diagram-2.png)
 
 # Security considerations
 
