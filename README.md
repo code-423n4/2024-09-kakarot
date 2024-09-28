@@ -392,7 +392,9 @@ make setup
 make install-katana
 make build-sol
 cp .env.example .env
-make run-katana 
+## this starts the chain instance, open another terminal within the same folder for the next function - make test
+make run-katana
+## this should be called in another terminal within the same folder 
 make test
 ```
 
@@ -400,7 +402,9 @@ make test
 curl -L https://install.astral.sh | bash
 make build
 make build-sol
+## this starts the chain instance, open another terminal within the same folder for the next function - make test-unit
 make run-nodes
+## this should be called in another terminal within the same folder
 make test-unit
 ```
 
