@@ -218,7 +218,7 @@ Once the input bytestream is decoded into a stream of RLP items, their structure
 ### Files in scope
 
 
-### Kakarot (Commit: 697100af34444b3931c18596cec56c454caf28ed)
+### Kakarot (Commit: 741a55)
 | Contract                                                                                                                                                                                                | SLOC      |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
 | [src/utils/utils.cairo](https://github.com/kkrt-labs/kakarot/blob/697100af34444b3931c18596cec56c454caf28ed/src/utils/utils.cairo)                                                                       | 815       |
@@ -274,7 +274,7 @@ Once the input bytestream is decoded into a stream of RLP items, their structure
 
 
 
-### Kakarot-lib (Commit: c2c7cb400f85c3699a6902946bcf4428d5b4fc61)
+### Kakarot-lib (Commit: c2c7cb4)
 
 | Contract                                                                                                                    | SLOC    |
 | --------------------------------------------------------------------------------------------------------------------------- | ------- |
@@ -282,7 +282,7 @@ Once the input bytestream is decoded into a stream of RLP items, their structure
 | **TOTAL SLOC**                                                                                                               | **124** |
 
 
-### Kakarot-ssj (Commit: d4a7873d6f071813165ca7c7adb2f029287d14ca)
+### Kakarot-ssj (Commit: 935c223)
 | Contract                                                                                                                                                                                                                                            | SLOC     |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | [crates/contracts/src/cairo1_helpers.cairo](https://github.com/kkrt-labs/kakarot-ssj/blob/d4a7873d6f071813165ca7c7adb2f029287d14ca/crates/contracts/src/cairo1_helpers.cairo)                                                                       | 134      |
@@ -376,7 +376,7 @@ N/A
 
 ## Running tests
 
-Follow the instructions in the [README.md](https://github.com/code-423n4/2024-09-kakarot.git) and [CONTRIBUTING.md](https://github.com/code-423n4/2024-09-kakarot.git) guide for environment setup. 
+Follow the instructions in the [README.md](https://github.com/kkrt-labs/kakarot/blob/7411a5520e8a00be6f5243a50c160e66ad285563/README.md) and [CONTRIBUTING.md](https://github.com/kkrt-labs/kakarot/blob/7411a5520e8a00be6f5243a50c160e66ad285563/docs/CONTRIBUTING.md) guide for environment setup. 
 
 *** Make sure [Rust 1.82 Beta release](https://releases.rs/docs/1.82.0/) is installed and in use. ***
 
@@ -384,7 +384,7 @@ Follow the instructions in the [README.md](https://github.com/code-423n4/2024-09
 ```bash
 git clone --recurse https://github.com/code-423n4/2024-09-kakarot.git
 ```
-#### For Kakarot (Commit: 697100af34444b3931c18596cec56c454caf28ed)
+#### For Kakarot (Commit: 7411a55)
 
 ```bash
 cd 2024-09-kakarot/kakarot
@@ -404,7 +404,7 @@ make run-nodes
 make test-unit
 ```
 
-#### For Kakarot-ssj (Commit: d4a7873d6f071813165ca7c7adb2f029287d14ca)
+#### For Kakarot-ssj (Commit: 935c223)
 
 * Make sure the environment setup is completed as referred [here](https://github.com/kkrt-labs/kakarot-ssj/tree/d4a7873d6f071813165ca7c7adb2f029287d14ca)
 
