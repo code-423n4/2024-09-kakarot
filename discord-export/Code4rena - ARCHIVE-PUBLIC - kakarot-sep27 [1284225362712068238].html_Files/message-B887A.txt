@@ -1,0 +1,62 @@
+make build-sol
+git submodule update --init --recursive
+forge build --names --force
+[⠊] Compiling...2024-09-28T10:27:53.227779Z ERROR foundry_compilers::resolver: failed to resolve versions
+[⠒] Compiling...
+Error: 
+Encountered invalid solc version in solidity_contracts/src/CairoPrecompiles/DualVmToken.sol: No solc version exists that matches the version requirement: =0.8.27
+Encountered invalid solc version in solidity_contracts/src/L1L2Messaging/L1KakarotMessaging.sol: No solc version exists that matches the version requirement: =0.8.27
+Encountered invalid solc version in solidity_contracts/src/L1L2Messaging/L2KakarotMessaging.sol: No solc version exists that matches the version requirement: =0.8.27
+Found incompatible Solidity versions:
+solidity_contracts/src/L1L2Messaging/MessageAppL1.sol ^0.8.0 imports:
+    solidity_contracts/src/L1L2Messaging/L1KakarotMessaging.sol =0.8.27
+    solidity_contracts/src/L1L2Messaging/MessageAppL2.sol >=0.7.0, <0.9.0
+    solidity_contracts/src/starknet/IStarknetMessaging.sol ^0.8.0
+    solidity_contracts/src/L1L2Messaging/AddressAliasHelper.sol ^0.8.0
+    solidity_contracts/src/starknet/IStarknetMessaging.sol ^0.8.0
+    solidity_contracts/src/L1L2Messaging/L2KakarotMessaging.sol =0.8.27
+    solidity_contracts/src/L1L2Messaging/AddressAliasHelper.sol ^0.8.0
+    solidity_contracts/src/starknet/IStarknetMessagingEvents.sol ^0.8.0
+    solidity_contracts/lib/kakarot-lib/src/CairoLib.sol >=0.8.0, <0.9.0
+Found incompatible Solidity versions:
+solidity_contracts/src/L1L2Messaging/MessageAppL2.sol >=0.7.0, <0.9.0 imports:
+    solidity_contracts/src/L1L2Messaging/L2KakarotMessaging.sol =0.8.27
+    solidity_contracts/src/L1L2Messaging/AddressAliasHelper.sol ^0.8.0
+    solidity_contracts/lib/kakarot-lib/src/CairoLib.sol >=0.8.0, <0.9.0
+Found incompatible Solidity versions:
+solidity_contracts/tests/L1KakarotMessage.t.sol >=0.8.0 imports:
+    solidity_contracts/lib/forge-std/src/Test.sol >=0.6.2, <0.9.0
+    solidity_contracts/src/L1L2Messaging/L1KakarotMessaging.sol =0.8.27
+    solidity_contracts/src/starknet/StarknetMessagingLocal.sol ^0.8.0
+    solidity_contracts/src/L1L2Messaging/AddressAliasHelper.sol ^0.8.0
+    solidity_contracts/lib/forge-std/src/console.sol >=0.4.22, <0.9.0
+    solidity_contracts/lib/forge-std/src/console2.sol >=0.4.22, <0.9.0
+    solidity_contracts/lib/forge-std/src/StdAssertions.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/StdChains.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/StdCheats.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/StdError.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/StdJson.sol >=0.6.0, <0.9.0
+    solidity_contracts/lib/forge-std/src/StdMath.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/StdStorage.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/StdUtils.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/Vm.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/Base.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/lib/ds-test/src/test.sol >=0.5.0
+    solidity_contracts/src/L1L2Messaging/AddressAliasHelper.sol ^0.8.0
+    solidity_contracts/src/starknet/IStarknetMessaging.sol ^0.8.0
+    solidity_contracts/src/starknet/StarknetMessaging.sol ^0.8.0
+    solidity_contracts/lib/forge-std/lib/ds-test/src/test.sol >=0.5.0
+    solidity_contracts/lib/forge-std/src/StdMath.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/Vm.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/StdStorage.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/Vm.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/Vm.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/Vm.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/interfaces/IMulticall3.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/Vm.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/StdStorage.sol >=0.6.2, <0.9.0
+    solidity_contracts/lib/forge-std/src/Vm.sol >=0.6.2, <0.9.0
+    solidity_contracts/src/starknet/IStarknetMessagingEvents.sol ^0.8.0
+    solidity_contracts/src/starknet/IStarknetMessaging.sol ^0.8.0
+    solidity_contracts/src/starknet/NamedStorage.sol ^0.8.0
+make: *** [Makefile:68: build-sol] Error 1
