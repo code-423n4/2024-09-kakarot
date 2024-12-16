@@ -1,0 +1,1513 @@
+==============================================================
+Guild: Code4rena
+Channel: ARCHIVE-PUBLIC / kakarot-sep27
+==============================================================
+
+[09/25/2024 18:37] itsmetechjay (pinned)
+👋 Hello and welcome to the audit channel for the **$170,000 in USDC Kakarot** audit!
+
+📆 Audit opens Friday, 27 September 2024 20:00 (20:00 UTC) and runs through Friday, 25 October 2024 20:00 (20:00 UTC) (28 days).
+
+Please give a warm welcome to the Kakarot team, particularly @eni, @oba, and @clemlaflemme  who will be available for questions either here in the channel or via a PRIVATE thread in the CET timezone, primarily. 
+
+🤖 **Documentation bot assistance:** For general questions about the codebase, give our documentation bot a try, by tagging `@Docs Wolf` in any thread (private or public) and asking your question. The bot will make its best attempt to answer based on the codebase and documentation, and link you to relevant resources.  
+
+We'll be posting relevant links, documentation, etc. here, so if you intend to participate in this audit, consider enabling notifications for this channel. 🐺 ⏰
+
+Audit Page: https://code4rena.com/audits/2024-09-kakarot
+
+
+[09/25/2024 18:53] itsmetechjay
+Pinned a message.
+
+
+[09/26/2024 00:40] rabtai
+LFG
+
+
+[09/26/2024 08:23] eni7912 (pinned)
+Hello everyone, super happy to start this audit with everyone 👋 
+Most of the Kakarot codebase is written in CairoZero - as resources are quite scarce (the only doc being https://docs.cairo-lang.org/hello_cairo/index.html), we developped a set of exercises if you need to get familiar with the language. 
+https://github.com/kkrt-labs/cairo0-starter
+
+{Reactions}
+💜 (12) 🔥 (8) 
+
+[09/26/2024 12:49] kartoonjoy
+Pinned a message.
+
+
+[09/27/2024 14:18] realfakepicnic
+@🐺Wardens Live code walk-through starting in 10 minutes! https://discord.gg/kjr5BbBz?event=1288174197834649733
+
+{Reactions}
+partyGlasses (6) 🔥 (4) 
+
+[09/27/2024 14:32] rare_one.
+Hello everybody and @eni  I am excited to be here
+
+
+[09/27/2024 14:37] realfakepicnic
+@🐺Wardens We are live in the Kakarot ZK-EVM Code Walk-Through channel! https://discord.com/channels/810916927919620096/1288172637151039609
+
+
+[09/27/2024 14:45] hex_panda
+Hi, guys! Thank you for hosting this walkthrough! I don't see anything on the streaming video, is it live already?
+
+
+[09/27/2024 14:51] cloudellie
+yes, it's live - maybe restart discord?
+
+{Reactions}
+❤️ 
+
+[09/27/2024 15:52] sockdrawermoney (pinned)
+summary of the chat from the walkthrough: https://gist.github.com/sockdrawermoney/21a55c3775dfef25c64c0e9a770b0774
+
+{Reactions}
+💜 (5) 
+
+[09/27/2024 15:53] m4k2
+The `rpc layer` is in scope here : https://discordapp.com/channels/810916927919620096/958800160870240286/1284257449037136014
+
+But not in scope in the second rsvp : https://discordapp.com/channels/810916927919620096/958800160870240286/1287783729883910165
+
+which one is the right one ?
+
+
+[09/27/2024 15:54] kartoonjoy
+Pinned a message.
+
+
+[09/27/2024 20:06] mctoady
+🥁 🥁🥁🥁
+
+{Reactions}
+🙌 (3) 
+
+[09/27/2024 20:10] cloudellie (pinned)
+Wardens, a few tips for this audit:
+
+** 📚 Audit Catalyst - essential resource**
+We're *very* excited to share the first-ever Audit Catalyst, prepared by @fcremo at Zellic. This is an essential read for accelerating your work as an auditor and using your time most effectively in contributing to the security of the project. It includes: 
+
+- Foundational knowledge (Kakarot zkEVM; Fundamentals and recommended background)
+- Project overview (Core contract, Account contract, Account contract deployment, Transaction flow)
+- Security considerations (Notable issue classes)
+
+** 🧑‍💻 Live Q&A chat with @fcremo: Monday, 30 September 2024 14:30-16:30**
+Bring your questions to this channel on Monday for a live Q&A chat session with fcremo (author of the audit catalyst). fcremo will also be available for questions in private threads during that time.
+
+**Questions?**
+- 🤖  **General questions** about the codebase and documentation should be posted directly in this channel (so all can benefit), or directed to our documentation bot. Tag `@Docs Wolf` in any thread (private or public) and ask your question. The bot will make its best attempt to answer based on the codebase and documentation, and link you to relevant resources.
+- 🥕 **Kakarot's team** is available to answer questions about the project and codebase. Tag  @eni , @oba , and @clemlaflemme in this channel or via a private thread - preferably in the CET timezone. 
+- 🔐 **NEW: Ask the auditor** - `@fcremo` from Zellic, who produced the Audit Catalyst materials, will be setting aside a few hours each week during the audit to answer security-focused questions sent via private thread.
+
+We are mindful of the time that fielding questions and discussion can take given the large size of our community. As a result, we have encouraged those answering questions to prioritize their time in the context of discord roles and levels.
+
+{Reactions}
+💜 (6) 
+
+[09/27/2024 20:13] cloudellie
+Pinned a message.
+
+
+[09/27/2024 20:16] pascal9476
+Who are the zenith ? 
+Keep forgetting 😅😅
+
+{Reactions}
+👀 ☀️ 
+
+[09/27/2024 20:19] cloudellie
+LZRs for this audit are @EV_om and @3DOC, aka RadiantLabs! 
+(To clarify: they are competing as a team, not against each other.)
+
+{Reactions}
+thankyou (3) 
+
+[09/27/2024 20:19] mctoady
+The faceoff? 👀
+
+{Reactions}
+😂 
+
+[09/27/2024 20:21] .boy2000
+Is there a recording of the code walk-through?
+
+
+[09/27/2024 20:21] realfakepicnic
+we're working on editing now!
+
+{Reactions}
+👍 (2) 
+
+[09/27/2024 20:30] 0xhelium
+GOATS are in Town
+
+{Reactions}
+noddinggoat (3) 
+
+[09/27/2024 20:30] m4k2
+Bro... Being a dark horse against them, this is another level 🔥
+
+{Reactions}
+🔥 (3) 
+
+[09/27/2024 20:32] cloudellie
+I believe in all of you!
+
+
+[09/27/2024 22:16] kirill_taran
+it seems that it's removed now, the repo only contains subrepos `kakarot`, `kakarot-lib` and `kakarot-ssj`
+
+
+[09/27/2024 23:17] haxatron1
+Here for the ice cream 🍨
+
+{Reactions}
+🤣 
+
+[09/28/2024 00:17] elgreengoblino
+Started a thread.
+
+
+[09/28/2024 00:20] elgreengoblino
+Hi @eni, one question, why the codebase is written in cairo zero and not in the new version?
+
+
+[09/28/2024 00:26] pfapostol
+I think the actual commits (kakarot@7411a55 and kakarot-ssj@935c223) are different from the ones in README.md scope (Kakarot (Commit: 697100a), Kakarot-ssj (Commit: d4a7873d))
+
+{Reactions}
+👀 
+
+[09/28/2024 00:28] morningstar2213
+@🧺 picnic
+
+
+[09/28/2024 00:46] sockdrawermoney
+we'll check in on this.
+
+
+[09/28/2024 00:49] pfapostol
+The new one is better in terms of faster setup and compilation, but there is a question of how stable it is.
+
+
+[09/28/2024 00:57] sockdrawermoney
+I added the submodules, but @sorryNotsorry added the scope tables. 
+
+@eni mentioned this to me yesterday and said something like this in the call this morning as well:
+
+> Also we are realized setting up the right development environment, with the right python versions etc through poetry can be tedious. So we're on the process of migrating to uv, a new python project manager that makes everything a lot simpler so that people can get started easily. This has no impact on the source code
+
+but then I do recall there was a typo caught when trying to build.
+
+my _guess_ is both commits are actually the same for the code in scope and one of these two things ^ is the difference, but we'll get confirmation from the team.
+
+
+[09/28/2024 01:47] realfakepicnic (pinned)
+Hey @🐺Wardens, here's the recording of today's live code walk-through. Enjoy! https://youtu.be/m45Y2F50mxk
+
+{Embed}
+Code4rena
+https://www.youtube.com/watch?v=m45Y2F50mxk
+Kakarot Code Walk-Through
+Learn about the Kakarot codebase and what to focus on during the September 27th - October 25th $170,000 competitive audit on Code4rena.
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/maxresdefault-FB638.jpg
+
+{Reactions}
+❤️ (6) 🔥 (2) 
+
+[09/28/2024 02:06] kartoonjoy
+Pinned a message.
+
+
+[09/28/2024 07:00] 0xnirlin
+This one is gonna be a really interesting contest. Good luck everyone.
+
+{Reactions}
+👍 (5) 
+
+[09/28/2024 07:25] 0xsorrynotsorry
+They're actually the same. I checked this before merging the last commit but missed to change the scope names. Good catch @pfapostol 🫡 
+Edit: Corrected both of them.
+
+
+[09/28/2024 07:41] drastic.watermelon
+Links in the first sentence of the contest's README's "Running test" section point to the wrong ref https://github.com/code-423n4/2024-09-kakarot?tab=readme-ov-file#running-tests
+
+
+[09/28/2024 07:50] 0xsorrynotsorry
+Thank you for the catch 🙏 
+Corrected both the links now
+
+{Reactions}
+NM_HappyHug 
+
+[09/28/2024 10:28] tim_peng.
+
+
+{Attachments}
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/message-B887A.txt
+
+
+[09/28/2024 10:29] tim_peng.
+has anyone been able to run make build-sol? the error message indicates that there are mismatch of Solidity version in different sol files
+
+
+[09/28/2024 10:38] pfapostol
+you are using an old forge. Run foundryup
+
+{Reactions}
+thankyou (2) 
+
+[09/28/2024 10:55] tim_peng.
+in this instruction                                                                                                                                                                                   **cd 2024-09-kakarot/kakarot
+make setup
+make install-katana
+make build-sol
+cp .env.example .env
+make run-katana 
+make test** . I am now at make run-katana  stage, the terminal got stuck here for a while. shall I open a new terminal to run make test
+
+{Attachments}
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/image-4F9D5.png
+
+
+[09/28/2024 10:59] pfapostol
+yes
+
+{Reactions}
+thankyou 👍 
+
+[09/28/2024 13:18] eni7912
+1. When we started writing the codebase, the new Cairo was not mature enough
+2. For efficiency reasons, we want to keep the CairoZero codebase which is on average ~5x less computation intensive because you have more degrees of liberty.
+In the future, with the new STWO prover, improvements in AIR design, and the Starknet sequencer executing transactions in Native mode (using machine instructions) instead of CairoVM mode, CairoZero might become less interesting than it is today.
+
+
+[09/28/2024 13:19] 0xsorrynotsorry
+added a comment in the repo for this instance to avoid confusion. 
+Thank you!
+
+{Reactions}
+👍 thankyou 
+
+[09/28/2024 13:19] eni7912
+is this sorted now? I think so, just want to confirm
+
+
+[09/28/2024 13:20] 0xsorrynotsorry
+Yes sir
+
+
+[09/28/2024 13:20] eni7912
+ok, great
+
+{Reactions}
+🫡 
+
+[09/28/2024 14:31] cloudellie
+clarified my previous post
+
+
+[09/28/2024 14:32] mctoady
+Damn I was ready to organize the Muay Thai event at Devcon
+
+{Reactions}
+🥊 🥋 praisethesun (3) 
+
+[09/28/2024 14:34] cloudellie
+I'd be front row for that
+
+{Reactions}
+➕ (3) 
+
+[09/28/2024 18:10] 0xsorrynotsorry
+I promised this to @hickuphh3 btw. Lol
+
+{Reactions}
+Pepe_Evil 👀 
+
+[09/28/2024 19:10] m3taldrag0n
+Is Kakarot deployed on the Starknet Sepolia network? If yes, can you share the addresses of the main contracts?
+
+
+[09/29/2024 03:40] hero0130
+one thing that seems to undocumented is that for env setup for running `make test` you need jq installed
+
+{Reactions}
+👍 
+
+[09/29/2024 04:34] pfapostol
+I use a clean VM system for every contest, and there are quite a few things that need to be installed that aren't documented, mostly for python modules to compile. But it's always written in the error message, so it's easy to fix.
+
+
+[09/29/2024 07:46] qpzm
+Are there anyone who met this error? 
+```sh
+# in 2024-09-kakarot/kakarot
+$ make test
+ValueError: STARKNET_NETWORK alpha-goerli given in env variable unknown
+```
+
+
+[09/29/2024 08:54] eni7912
+For now, Kakarot is on a custom starknet appchain
+
+
+[09/29/2024 08:56] eni7912
+hi, did you set this variable manually?
+
+
+[09/29/2024 15:26] 0xumarkhatab
+so if issues are found in cairoZero-based codebase and team becomes aware during the contest or prior to it's start but was not included in known issues but maybe known by part of cairo community - will those issues be valid ? @eni
+
+
+[09/29/2024 18:54] eni7912
+sorry, I don't understand the question
+
+
+[09/29/2024 18:55] eni7912
+if you find an issue in the files in scope, yes it will be valid
+
+
+[09/30/2024 03:18] 0xumarkhatab
+got it sir , that answers it
+
+
+[09/30/2024 03:41] 0xumarkhatab
+Started a thread.
+
+
+[09/30/2024 04:20] 0xumarkhatab
+so we don't have lows for this contest ?
+
+
+[09/30/2024 04:44] samuselderg
+Looks like it, i see this in the audit description though: `While there are no QA awards, QA reports are encouraged as a fallback in the event of no valid HMs.`
+
+[Lows are normally bundled into QA report submissions](https://docs.code4rena.com/roles/wardens/submission-guidelines#qa-reports-low-governance)
+
+{Reactions}
+👍 
+
+[09/30/2024 05:31] 0xumarkhatab
+got it samus, thank you
+
+
+[09/30/2024 06:06] hero0130
+Are undocumented EVM equivalence issues high by default or do we need to show impact for them?
+
+
+[09/30/2024 08:08] clemlaflemme
+hey, so it's not high by default, see for example Zellic's 3.19 finding which was an EVM equivalence issue, ranked Low
+
+> 3.19. Incorrect usage of try_parse_destination_from_bytes
+
+{Reactions}
+👍 (2) 
+
+[09/30/2024 10:04] eni7912
+this is during compilation, not deployment?
+
+
+[09/30/2024 10:04] 0xastronatey
+yes
+
+
+[09/30/2024 10:05] eni7912
+what's `scarb --version` ?
+
+
+[09/30/2024 10:06] 0xastronatey
+```scarb 2.8.3 (54938ce3b 2024-09-26)
+cairo: 2.8.2 (https://crates.io/crates/cairo-lang-compiler/2.8.2)
+sierra: 1.6.0
+```
+
+
+[09/30/2024 10:07] eni7912
+this one needs to be compiled with 2.6.5 - it's auto managed when using `asdf` , see : https://github.com/kkrt-labs/kakarot/blob/main/docs/CONTRIBUTING.md#prerequisites
+
+{Embed}
+https://github.com/kkrt-labs/kakarot/blob/main/docs/CONTRIBUTING.md
+kakarot/docs/CONTRIBUTING.md at main · kkrt-labs/kakarot
+Kakarot is a zkEVM written in Cairo, leveraging the STARK proof system. - kkrt-labs/kakarot
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/kakarot-E02A4
+
+
+[09/30/2024 10:13] 0xastronatey
+thank you!
+
+
+[09/30/2024 10:21] 0xastronatey
+tried compiling with 2.6.5, getting a new string of errors
+oddly enough, i checked the contents  of the Scarb.toml file
+
+
+[09/30/2024 10:22] 0xastronatey
+t the starknet dependency is set to a version (2.8.2) rather than using the caret (^) notation
+
+
+[09/30/2024 11:18] eni7912
+are we looking at the same file? https://github.com/kkrt-labs/kakarot/blob/main/cairo1_contracts/token/Scarb.toml
+
+{Embed}
+https://github.com/kkrt-labs/kakarot/blob/main/cairo1_contracts/token/Scarb.toml
+kakarot/cairo1_contracts/token/Scarb.toml at main · kkrt-labs/kakarot
+Kakarot is a zkEVM written in Cairo, leveraging the STARK proof system. - kkrt-labs/kakarot
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/kakarot-E02A4
+
+
+[09/30/2024 11:43] 0xastronatey
+thanks, fixed it
+
+
+[09/30/2024 14:14] realfakepicnic
+@🐺Wardens 15 minutes until the LIVE Q&A Chat with Zellic!
+
+This is a great chance to get your questions answered, either publicly in this channel or in a private thread.
+
+https://discord.gg/sKHvtWMK?event=1289389249103269908
+
+{Reactions}
+🥕 (3) 🧑‍💻 cyberheart 
+
+[09/30/2024 14:30] cloudellie
+🗨️  **Live Q&A with fcremo starting now**
+
+@🐺Wardens, please welcome @fcremo -- Zellic security researcher and author of the [**Audit Catalyst**](https://github.com/code-423n4/2024-09-kakarot/tree/sock/catalyst) for Kakarot! 
+
+You can ask questions in two ways: 
+- General questions can go directly in the chat (no need to tag 😄 )
+- or, you can create a private thread and tag `@fcremo` 
+
+Public questions are encouraged, so that the whole community can benefit from the discussion.
+
+{Reactions}
+Partycat (5) 🫡 
+
+[09/30/2024 14:46] fcremo
+I'm getting some questions about how we run tests. My recommendation would be to use the devcontainers configuration provided with Kakarot, that is what we used.
+You may run into some missing dependencies, if I remember correctly at the time we audited Kakarot the documentation/configuration was not 100% up to date, but this could have been fixed in the meantime as well.
+
+{Reactions}
+👍 
+
+[09/30/2024 14:51] fcremo
+Once the devcontainers were up and running, I used two terminals:
+- run `make run-katana` ,
+- the other one `make test`
+I used [these instructions](https://github.com/kkrt-labs/kakarot/blob/main/docs/CONTRIBUTING.md#setting-up-the-environment) as guidance.
+
+Tip to save time: you can avoid running all the tests every single time by specifying a more precise path in the commands
+```
+uv run pytest tests/src -m "not NoCI" --log-cli-level=INFO -n logical --seed 42
+uv run pytest tests/end_to_end --seed 42
+```
+which is [what `make test` runs](https://github.com/kkrt-labs/kakarot/blob/7411a5520e8a00be6f5243a50c160e66ad285563/Makefile#L42)
+
+
+[09/30/2024 14:52] fcremo
+So if you substitute `tests/src` with `tests/src/kakarot/test_account.py` you'll only run [these tests](https://github.com/kkrt-labs/kakarot/blob/main/tests/src/kakarot/test_account.py)
+
+
+[09/30/2024 15:15] fcremo
+There are a couple of aspects I'd like to put a spotlight on; I've already mentioned them in the catalyst doc, but I feel like they are important enough to warrant bringing them up explicitly
+
+
+[09/30/2024 15:15] willbdeving
+👀
+
+
+[09/30/2024 15:19] fcremo
+The first is, I encourage you to look at the early parts of the transaction flow, specifically the entrypoint into the account contract. This is mainly because it was refactored after our audit.
+
+
+[09/30/2024 15:20] fcremo
+In the commit we reviewed, account contracts natively supported the account abstraction `__verify__` and `__execute__` entrypoints; this is not the case anymore, and a bug in there could easily be a high severity issue (e.g. sig bypass or denial of service).
+
+
+[09/30/2024 15:22] fcremo
+Another interesting idea is differential fuzzing the interpreter vs. geth (or another EVM implementation).
+
+It's something I would have really liked doing, but didn't get a chance to, as our audit prioritized a manual code review of the whole codebase.
+
+Despite Kakarot passes (a majority of) the official ethereum foundation compliance tests, we still found two (IIRC) opcode semantics bugs which were not covered by the testsuite (!).
+
+I'm convinced both would have been found by differential fuzzing.
+
+
+[09/30/2024 15:26] fcremo
+I think achieving good performance could prove a challenging engineering effort, mostly because I'm not sure how efficient the Cairo0 code can be made to run.
+
+On the plus side, the executor component of the differential fuzzer could prove useful for hunting bugs in other Cairo0 (and perhaps even Cairo1) projects, so it could be a worthwile investment.
+
+Obligatory disclaimer: this is not ~~financial~~ time investment advice 😛
+
+{Reactions}
+😁 (3) 
+
+[09/30/2024 15:31] hero0130
+well even if it isnt time investment advice, its already what im trying lol
+
+
+[09/30/2024 15:31] fcremo
+The class of bugs where I **will** be surprised if there aren't any issues is arithmetic overflows/underflows.
+
+Cairo0 is, frankly, really unforgiving in this regard (just as many others, e.g. good 'ol C).
+
+Plus, due to the nature of Kakarot, many of these bugs are likely to be high severity. One of the least severe cases is an issue with EVM gas computation, but it could easily be an overflow of an array length which significantly alters the bytecode execution.
+
+
+[09/30/2024 15:31] hero0130
+tbh i thought of differential fuzzing against geth as soon as the contest was announced, before you even mentioned it
+
+
+[09/30/2024 15:32] fcremo
+I'm really curious to see what results it will get you, and even if you don't get any bugs I'd still be really curious to see how you'll engineer it!
+
+
+[09/30/2024 15:33] hero0130
+yea there are a lot of complicated things to deal with given the differences between reference implementation and accessing a vm running on another vm.
+
+
+[09/30/2024 15:35] hero0130
+and i am also concerned about performance, but cant really answer that till i get things running
+
+
+[09/30/2024 15:42] gd.eth
+It's interesting. Is there any published research on evm or something?
+
+
+[09/30/2024 15:43] fcremo
+You mean research on differential fuzzing different EVM implementations?
+
+{Reactions}
+✅ 
+
+[09/30/2024 15:43] hero0130
+Go look at goevmlab
+
+{Reactions}
+👍 thankyou 
+
+[09/30/2024 15:45] hero0130
+I will say getting goevmlab working with kakarot is not a simple task.
+
+
+[09/30/2024 15:45] fcremo
+I don't remember of any but I'm sure there must be something, and I'm 110% sure many have done it already.
+I remember a post about differential fuzzing Solana [1], and some tooling might be reused (IIRC Addison used libafl, which I highly recommend)
+
+[1] https://secret.club/2022/05/11/fuzzing-solana.html
+
+{Reactions}
+👍 (2) 
+
+[09/30/2024 15:46] hero0130
+goevmlab is a differential fuzzer (and general evm testing toolkit) made by the #1 on the ethereum bug bounty leaderboard
+
+
+[09/30/2024 15:46] fcremo
+This looks very interesting indeed
+
+
+[09/30/2024 15:46] hero0130
+<https://github.com/holiman/goevmlab>
+
+
+[09/30/2024 15:47] hero0130
+*2nd on bug bounty leaderboard, 1st on execution layer leaderboard
+
+
+[09/30/2024 15:48] gd.eth
+Thanks! I'll go check that repo.
+
+
+[09/30/2024 15:56] hero0130
+the stuff fcremo linked for solana also might be effective. idk.
+
+
+[09/30/2024 15:57] hero0130
+i know it is good for fuzzing, but goevmlab has some context specific for evm that might be better. but sometimes something completely random can find something new.
+
+
+[09/30/2024 15:57] fcremo
+I was linking it more for the conceptual stuff than the code itself, honestly I don't expect the tooling Addison used to be very useful directly
+
+
+[09/30/2024 15:57] hero0130
+ah ok
+
+
+[09/30/2024 15:59] fcremo
+I see goevmlab has already support for e.g. comparing traces and running against multiple other EVMs, so it looks really promising.
+The major effort, as you said, is to integrate it with Kakarot; I don't know how hard it would be, but my feeling is that it won't be trivial to do so, especially with decent performance
+
+
+[09/30/2024 15:59] fcremo
+But good bugs rarely come cheap!
+
+
+[09/30/2024 16:00] hero0130
+yea from what i have done so far it is not trivial, but someone more familar with the tools might have a easier time.
+
+
+[09/30/2024 16:03] ahmedaghadi
+for kararot-ssj, `scarb test` fails whereas `scarb build` doesn't.
+```bash
+$ scarb test
+     Running test alexandria_data_structures (snforge test --max-n-steps 4294967295)
+warn: found duplicate packages named `map v0.1.0 (git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0)`
+
+Found locations:
+- git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0
+- git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0
+
+Because of this, referencing package `map v0.1.0 (git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0)` will fail.
+
+warn: found duplicate packages named `map v0.1.0 (git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0)`
+
+Found locations:
+- git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0
+- git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0
+
+Because of this, referencing package `map v0.1.0 (git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0)` will fail.
+
+   Compiling snforge_scarb_plugin v0.31.0 (git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0)
+    Finished `release` profile [optimized] target(s) in 0.12s
+   Compiling test(alexandria_data_structures_unittest) alexandria_data_structures v0.1.0 (/home/ahmed/audits/2024-09-kakarot/kakarot-ssj/crates/alexandria_data_structures/Scarb.toml)
+error: /home/ahmed/.cache/scarb/plugins/proc_macro/snforge_scarb_plugin-github.com-j6413jolch762/v0.31.0/target/release/libsnforge_scarb_plugin.so: undefined symbol: __start_linkm2_MACRO_DEFINITIONS_SLICE
+[ERROR] Failed to build test artifacts with Scarb: `scarb` exited with error
+```
+
+
+[09/30/2024 16:06] fcremo
+I'm not sure running `scarb test` is supposed to work.
+The readme says tests should be run using `make test`, and that is what I always used.
+You first need to setup your environment. Try using https://github.com/kkrt-labs/kakarot/blob/main/docs/CONTRIBUTING.md to do that
+
+
+[09/30/2024 16:09] ahmedaghadi
+But I'm referring to kakarot-ssj repo. It's mentioned in Readme to run `scarb test` https://github.com/kkrt-labs/kakarot-ssj/tree/935c2238ac0b42c910afd3efeb96f003c1742edf?tab=readme-ov-file#test
+
+
+[09/30/2024 16:11] fcremo
+Ah I see, my bad. I do not know about that repo, as it was not in scope of Zellic review. I think someone from Kakarot might help you out with it (@eni perhaps?)
+
+
+[09/30/2024 16:11] hero0130
+i dont know if this will help but the duplicate packages that is being warned might cause be causing a issue?
+
+
+[09/30/2024 16:11] eni7912
+hi, you need to downgrade rust to 1.82.0 I believe
+
+
+[09/30/2024 16:12] ahmedaghadi
+Lemme check, although I did have installed 1.82 beta but I think I didn't switched to that version
+
+
+[09/30/2024 16:12] eni7912
+https://github.com/kkrt-labs/kakarot-ssj/blob/main/rust-toolchain 1.81.0 actually sorry
+
+
+[09/30/2024 16:13] eni7912
+it's a hell it changes everytime 😢
+
+
+[09/30/2024 16:13] hero0130
+yea i thought it was interesting that we specifically had to use a beta branch to get some things to compile
+
+
+[09/30/2024 16:13] ahmedaghadi
+Oh I see, I ran `rustup show` and it's automatically installing 1.81.0
+
+
+[09/30/2024 16:14] eni7912
+this is just a warning from starknet-foundry, idk why it happens, but it's just a warning
+
+
+[09/30/2024 16:15] ahmedaghadi
+It's still failing
+
+
+[09/30/2024 16:15] eni7912
+you can join @starknet_foundry_support on telegram
+
+
+[09/30/2024 16:15] hero0130
+yea i just guessed cause i was trying to help. warnings can sometimes be useful. and sometimes they can be ignored.
+
+
+[09/30/2024 16:15] ahmedaghadi
+```bash
+$ scarb test
+     Running test alexandria_data_structures (snforge test --max-n-steps 4294967295)
+warn: found duplicate packages named `map v0.1.0 (git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0)`
+
+Found locations:
+- git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0
+- git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0
+
+Because of this, referencing package `map v0.1.0 (git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0)` will fail.
+
+warn: found duplicate packages named `map v0.1.0 (git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0)`
+
+Found locations:
+- git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0
+- git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0
+
+Because of this, referencing package `map v0.1.0 (git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0)` will fail.
+
+   Compiling snforge_scarb_plugin v0.31.0 (git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0)
+    Finished `release` profile [optimized] target(s) in 0.13s
+   Compiling test(alexandria_data_structures_unittest) alexandria_data_structures v0.1.0 (/home/ahmed/audits/2024-09-kakarot/kakarot-ssj/crates/alexandria_data_structures/Scarb.toml)
+error: /home/ahmed/.cache/scarb/plugins/proc_macro/snforge_scarb_plugin-github.com-j6413jolch762/v0.31.0/target/release/libsnforge_scarb_plugin.so: undefined symbol: __start_linkm2_MACRO_DEFINITIONS_SLICE
+[ERROR] Failed to build test artifacts with Scarb: `scarb` exited with error
+```
+
+
+[09/30/2024 16:16] eni7912
+what's rustc --version ?
+
+
+[09/30/2024 16:16] ahmedaghadi
+```$ rustc --version
+rustc 1.81.0 (eeb90cda1 2024-09-04)
+```
+
+
+[09/30/2024 16:16] eni7912
+can you run `scarb cache clean`
+
+
+[09/30/2024 16:17] eni7912
+and `snforge clean-cache`
+
+
+[09/30/2024 16:17] eni7912
+mine is the same; no issue
+
+
+[09/30/2024 16:17] ahmedaghadi
+I did this, now it's compiling. Let's wait 🙂
+
+{Reactions}
+✅ 
+
+[09/30/2024 16:18] ahmedaghadi
+Still same error
+
+
+[09/30/2024 16:18] ahmedaghadi
+I guess this might be the issue:
+```bash
+$ snforge clean-cache
+warn: found duplicate packages named `map v0.1.0 (git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0)`
+
+Found locations:
+- git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0
+- git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0
+
+Because of this, referencing package `map v0.1.0 (git+https://github.com/foundry-rs/starknet-foundry.git?tag=v0.31.0#249f1e9960b7ee07d80e12b585ac57b644f9e4c0)` will fail.
+```
+
+
+[09/30/2024 16:19] ahmedaghadi
+It's saying that there are duplicate package but both location are exactly same.
+
+
+[09/30/2024 16:21] ahmedaghadi
+@eni Do you also see this warning in your case?
+
+
+[09/30/2024 16:22] eni7912
+yes I have the same, this should not cause any error
+
+
+[09/30/2024 16:22] eni7912
+can you join https://t.me/starknet_foundry_support ?
+
+{Embed}
+https://t.me/starknet_foundry_support
+Starknet Foundry - Support
+You can view and join @starknet_foundry_support right away.
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/HIe51RSUGe1fZswSU01N4s7v6FZ43fCvUNlk4_jr2D-8E90F.jpg
+
+
+[09/30/2024 16:22] ahmedaghadi
+Sure! Lemme ask there
+
+
+[09/30/2024 16:24] eni7912
+my first guess is it's a problem of cache now that you switched to the correct rust version
+
+
+[09/30/2024 16:24] ahmedaghadi
+I did clean the cache though
+
+
+[09/30/2024 16:25] ahmedaghadi
+I'm planning to use dev containers then. Although I haven't used it before.
+
+
+[09/30/2024 16:25] eni7912
+perhaps like a cargo cache
+
+
+[09/30/2024 16:25] ahmedaghadi
+Lemme try that too
+
+
+[09/30/2024 16:25] eni7912
+but idk where that cache would be
+
+
+[09/30/2024 16:25] ahmedaghadi
+I guess it exist in the same folder but only if it's rust project
+
+
+[09/30/2024 16:33] ahmedaghadi
+I did clean the cache but still same issue
+```bash
+$ cargo clean gc -Z gc
+     Removed 49452 files, 660.3MiB total
+```
+
+
+[09/30/2024 16:35] cloudellie
+Thanks to all who participated in today's Q&A - especially @fcremo ! 👏 :hi5: 
+
+Reminder that fcremo will be setting aside some time throughout the audit to reply to questions posted here. 
+
+Q&A guidelines for this audit are in the pinned posts, or you can jump directly here: https://discord.com/channels/810916927919620096/1284225362712068238/1289318395849736214
+
+
+[09/30/2024 16:37] eni7912
+sorry, i'm out of idea 😦
+
+
+[09/30/2024 16:38] eni7912
+im wondering if it could be a wsl issue
+
+
+[09/30/2024 16:38] ahmedaghadi
+NP, I'm trying dev containers then. It might be wsl issue
+
+
+[09/30/2024 18:43] ahmedaghadi
+With devcontainers, it's no longer an issue. I think it should be the issue with wsl2.
+
+
+[10/01/2024 05:22] eme0242
+I'm getting this error when running make test
+Help please🤲
+
+{Attachments}
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/Screenshot_2024-10-01_at_06.20.32-0E6BF.png
+
+
+[10/01/2024 06:09] clemlaflemme
+most probably wrong scarb version, but what repo are you working on ?
+
+
+[10/01/2024 07:13] eme0242
+scarb version=2.6.5
+I'm working on kakarot
+
+
+[10/01/2024 07:13] clemlaflemme
+installed **with asdf** ? what does `which scarb` tells you?
+
+
+[10/01/2024 07:14] eme0242
+
+
+{Attachments}
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/Screenshot_2024-10-01_at_08.14.08-89744.png
+
+
+[10/01/2024 07:26] eme0242
+Running scarb --version shows:
+
+{Attachments}
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/Screenshot_2024-10-01_at_08.25.25-6AC94.png
+
+
+[10/01/2024 07:27] clemlaflemme
+can you `make build` only?
+
+
+[10/01/2024 07:27] eme0242
+no
+same error
+
+
+[10/01/2024 07:28] clemlaflemme
+can you `cd cairo1_contracts/{each directory}` and `scarb build` therein?
+
+
+[10/01/2024 09:09] somtee4791
+Is it normal for pytest to take so long?
+
+
+[10/01/2024 09:18] eni7912
+how long?
+
+
+[10/01/2024 09:21] somtee4791
+It's been roughly 10 minutes now
+
+
+[10/01/2024 09:22] eni7912
+is it stuck or do you see it executing tests
+
+
+[10/01/2024 09:31] somtee4791
+Here's what it looks like
+
+{Attachments}
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/Screenshot_155-5ACEF.jpg
+
+
+[10/01/2024 09:41] somtee4791
+Never mind, I just had to use the verbose `-v` flag
+
+
+[10/01/2024 09:49] clemlaflemme
+some tests are slow, you can also run with `m "not slow"`
+
+
+[10/01/2024 09:50] clemlaflemme
+with pytest you can also target one single test with `pytest path/to/file_test.py` , some tests only in the file, use marks, etc. if yuo're not familiar, refer to their doc
+
+
+[10/01/2024 09:58] eme0242
+Which extension should I install on vscode for the syntax highlighting and easier code navigation please?
+
+
+[10/01/2024 09:58] eme0242
+Is there a better way?👀
+
+
+[10/01/2024 10:18] 0xastronatey
+just search up cairo in vscode and install it
+
+
+[10/01/2024 10:33] eme0242
+Yeah
+I have cairo 1.0 extension installed.
+Code is highlighted, but I can't do stuff like cmd click to navigate, or peek/goto definitions
+Plus each line of code is showing an err(Maybe a wrong config or something)
+
+
+[10/01/2024 11:09] somtee4791
+Exactly same here
+
+
+[10/01/2024 11:10] somtee4791
+Got it! Thanks man
+
+
+[10/01/2024 11:35] 0xhelium
+I'am getting this error xhen i run `make setup`
+
+
+[10/01/2024 11:35] 0xhelium
+`In file included from src/curve.c:1:
+src/curve.h:4:10: fatal error: gmp.h: No such file or directory
+    4 | #include "gmp.h"
+      |          ^~~~~~~
+compilation terminated.
+error: command '/usr/bin/x86_64-linux-gnu-gcc' failed with exit code 1
+---
+  Caused by: This error likely indicates that you need to install a library that provides "gmp.h" for fastecdsa@2.3.2
+make: *** [Makefile:39: setup] Error 2
+helium@helium:~/kakarot$`
+
+
+[10/01/2024 11:40] 0xhelium
+any fix ?
+
+
+[10/01/2024 11:43] ahmedaghadi
+If I'm not wrong, you need to install clang
+
+
+[10/01/2024 11:44] eni7912
+https://github.com/kkrt-labs/kakarot/blob/main/docs/CONTRIBUTING.md#setting-up-the-environment see last line I think
+
+
+[10/01/2024 11:46] eni7912
+two extensions : see https://github.com/kkrt-labs/kakarot/blob/main/docs/CONTRIBUTING.md#prerequisites
+
+
+[10/01/2024 11:47] eni7912
+if focusing on the CairoZero code you might want to deactivate the Cairo1 extension
+
+{Reactions}
+👍 
+
+[10/01/2024 11:48] eme0242
+I thought so
+
+
+[10/01/2024 11:52] 0xhelium
+This didn't work
+
+
+[10/01/2024 12:08] 0xhelium
+@eni
+
+
+[10/01/2024 12:08] eni7912
+i sent you a linnk
+
+
+[10/01/2024 12:35] 0xhelium
+I was following this guide . Which last line are you talking about ?
+
+
+[10/01/2024 12:38] eni7912
+
+
+{Attachments}
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/image-9BFA4.png
+
+
+[10/01/2024 12:51] fyamfs
+On Debian-based:
+sudo apt-get install libgmp-dev
+
+
+[10/01/2024 12:51] 0xhelium
+Yes solved it already
+
+
+[10/01/2024 12:51] 0xhelium
+I skipped Mac section cause I use wsl lol
+
+{Reactions}
+👍 
+
+[10/01/2024 12:54] ahmedaghadi
+Oh, I think I've to installed libgmp-dev
+
+
+[10/01/2024 13:17] 0xhelium
+New error for `make test`
+
+
+[10/01/2024 13:17] 0xhelium
+`helium@helium:~/kakarot$ make test
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0/bin/sh: 1: jq: not found
+100  4366    0  4366    0     0   9334      0 --:--:-- --:--:-- --:--:--  9349
+curl: (23) Failure writing output to destination
+curl -sL -o dev-artifacts.zip ""
+make: *** [Makefile:33: dev-artifacts.zip] Error 3
+helium@helium:~/kakarot$`
+
+
+[10/01/2024 13:21] eni7912
+`jq: not found` install jq
+
+
+[10/01/2024 13:22] eni7912
+depending on your distribution it may or may not be there by default
+
+
+[10/01/2024 13:25] 0xhelium
+`helium@helium:~/kakarot$ make test
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  7280  100  7280    0     0  18779      0 --:--:-- --:--:-- --:--:-- 18811
+curl -sL -o dev-artifacts.zip "https://github.com/kkrt-labs/kakarot-ssj/releases/download/v0.1.13/kakarot-ssj-build.zip"
+rm -rf build/ssj
+mkdir -p build/ssj
+unzip -o dev-artifacts.zip -d build/ssj
+make: unzip: No such file or directory
+make: *** [Makefile:29: build/ssj] Error 127`
+
+
+[10/01/2024 13:25] pfapostol
+install unzip
+
+{Reactions}
+😅 
+
+[10/01/2024 13:26] pfapostol (pinned)
+sorry for the interference but please google the error before asking in the chat, in 2 days 99% of the errors were not specific to the contest
+
+{Reactions}
+👍 (4) 👆 (4) 💯 (4) 
+
+[10/01/2024 15:22] kartoonjoy
+Pinned a message.
+
+
+[10/01/2024 18:47] ahmedaghadi
+I've tried configuring extension but for some files, I'm getting this error. I believe this only happens if this exists in the file: `%lang starknet`
+
+{Attachments}
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/image-CCF45.png
+
+
+[10/01/2024 20:30] ahmedaghadi
+Even though I've added both "src" and "tests" as cairoPath in the extension settings, it doesn't search in the "tests" path rather search in ".venv/lib/python3.10/site-packages/tests".
+So basically the two paths it should be searching in should be:
+1. "/workspaces/2024-09-kakarot-c4/2024-09-kakarot/kakarot/src"
+2. "/workspaces/2024-09-kakarot-c4/2024-09-kakarot/kakarot/tests"
+
+{Attachments}
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/image-F9AEB.png
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/image-6396C.png
+
+
+[10/02/2024 03:11] gbadebos
+Hi @eni  @oba  @clemlaflemme  Is ownable not in scope then?
+
+
+[10/02/2024 08:19] eni7912
+you mean the openzeppelin library?
+
+
+[10/02/2024 11:04] gbadebos
+Where it's being used, such as Kakarot.Cairo, yes.
+
+
+[10/02/2024 11:04] eni7912
+no these were audited by openzeppelin already
+
+{Reactions}
+✅ 
+
+[10/02/2024 18:32] ahmedaghadi
+I'm trying to run etf-tests. Readme tells:
+```bash
+ln -s /Users/clementwalter/Documents/kkrt-labs/kakarot/blockchain-tests-skip.yml blockchain-tests-skip.yml
+mkdir build && cd build
+ln -s /Users/clementwalter/Documents/kkrt-labs/kakarot/build/ v0
+ln -s /Users/clementwalter/Documents/kkrt-labs/kakarot/build/fixtures/ common
+```
+But in `build` folder for `kakarot`, there isn't any `fixtures` directory. Am I missing something?
+
+
+[10/04/2024 15:55] gbadebos
+Hi @kartoonjoy | C4🎇🎇 I withdrew my QA report, forgetting that I cannot open a new one.  Can you please reset my QA report so that I can submit my low findings please?
+
+
+[10/04/2024 16:00] kartoonjoy
+Can you try now?
+
+{Reactions}
+✅ 👍 
+
+[10/04/2024 16:01] gbadebos
+Ok, Will try now.
+
+
+[10/04/2024 16:09] gbadebos
+Thanks! It worked.
+
+{Reactions}
+hi5 (2) 
+
+[10/07/2024 15:46] cloudellie (pinned)
+❗ @🐺Wardens 4 contracts have been added to the scope of this audit, as they were unintentionally omitted from the original scope. Our apologies for not catching this sooner. 
+
+The ["Files in Scope" table](https://github.com/code-423n4/2024-09-kakarot?tab=readme-ov-file#files-in-scope) has been updated to add: 
+- `src/kakarot/solidity_contracts/src/CairoPrecompiles/DualVmToken.sol`
+- `src/kakarot/solidity_contracts/src/L1L2Messaging/L1KakarotMessaging.sol`
+- `src/kakarot/solidity_contracts/src/L1L2Messaging/L2KakarotMessaging.sol`
+- `src/kakarot/solidity_contracts/src/L1L2Messaging/AddressAliasHelper.sol`
+
+{Embed}
+https://github.com/code-423n4/2024-09-kakarot?tab=readme-ov-file
+GitHub - code-423n4/2024-09-kakarot
+Contribute to code-423n4/2024-09-kakarot development by creating an account on GitHub.
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/dcb65cad-22ba-401a-b581-9a08325da0c4-DE879
+
+{Reactions}
+🔥 (12) code4rena (3) 
+
+[10/07/2024 15:47] cloudellie
+Pinned a message.
+
+
+[10/12/2024 11:14] tim_peng.
+why the page for the difference between Kakarot and evm is no longer there https://docs.kakarot.org/differences/
+
+
+[10/12/2024 11:23] gumgumzum
+https://docs.kakarot.org/starknet/architecture/differences
+
+{Embed}
+https://docs.kakarot.org/starknet/architecture/differences
+Differences between Kakarot Starknet and Ethereum | Kakarot ZK-EVM
+Although Kakarot on Starknet is Ethereum-compatible and aims to support the
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/kkrt-docs-F15AB.png
+
+{Reactions}
+thankyou 
+
+[10/12/2024 11:27] tim_peng.
+thanks a lot. the github page has not been updated yet
+
+{Attachments}
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/image-33CBB.png
+
+
+[10/12/2024 12:29] gumgumzum
+Yeah, I think it was moved recently
+
+
+[10/24/2024 18:38] acegawd
+@eni are you available to answer a question in a PT?
+
+
+[10/25/2024 08:24] eni7912
+yes
+
+
+[10/25/2024 08:24] eni7912
+just ask
+
+
+[10/25/2024 14:26] acegawd
+Messaged you in the PT @eni
+
+
+[10/25/2024 20:02] C4
+**🚨 AUDIT ALERT**
+
+@🐺Wardens The **Kakarot** audit is now closed! Huge thanks to everyone who participated 🔍, whether you submitted a finding or not.
+
+What's next: The sponsor team and judge will review the findings over the next couple of weeks. Feel free to ping a Civics-Admin if you have questions along the way!
+
+{Reactions}
+❤️ 🔥 
+
+[10/25/2024 20:04] gumgumzum
+This was an amazing learning experience for me, thanks @eni @oba for the opportunity and for answering all the questions in a timely manner 👍
+
+{Reactions}
+💜 
+
+[10/25/2024 20:12] kowalski_analysis
+It was a really interesting project. Even though I probably didn't catch a lot of issues, I enjoyed learning Cairo 0 and Starknet. Thanks to the Kakarot team and @fcremo for their answers.
+
+{Reactions}
+💜 
+
+[10/25/2024 20:25] fcremo
+Thank you @ulas and to all the other participants who have engaged in interesting conversations. Best of luck with the judging phase, may none of your bugs be duplicates 🙂
+
+{Reactions}
+❤️ (3) 
+
+[10/25/2024 20:37] ahmedaghadi
+Special thanks to @eni for answering all my questions and helping me to solve errors. I was able to do differential fuzzing with geth and was able to find few bugs.
+
+{Reactions}
+chefskiss (4) 
+
+[10/26/2024 07:34] eni7912
+Thank you all for diving deep into Kakarot, I hope you enjoyed it!
+
+{Reactions}
+hi5 (5) 👍 (5) 
+
+[10/27/2024 18:00] x8889223
+Was there a defined ETA for judging on this? Or is it just in general ~the next couple of weeks?
+
+
+[11/11/2024 03:18] harryfyx
+will there be a public report?
+
+
+[11/19/2024 22:35] thebrittfactor
+🤑 🎉  Awards for **Kakarot**:
+
+$93,461.40 USDC » RadiantLabs (@EV_om and @3DOC) 
+$12,500 USDC » @fcremo
+$11,096.73 USDC » @g_x_w 
+$6,026.65 USDC » @0xAstronatey 
+$5,725.99 USDC » @gumgumzum 
+$5,203.03 USDC » @Berndt 
+$2,594.00 USDC » @oakcobalt 
+$1,820.84 USDC » @Bauchibred 
+$1,807.99 USDC » @ahmedaghadi 
+$1,703.70 USDC » @fyamf 
+$1,481.49 USDC » @0x41653 
+$1,414.83 USDC » @Emmanuel 
+$1,310.53 USDC » @๕ۣۜⱤɨα乙ⴎᥨ༒ 
+$1,310.53 USDC » @Daviey 
+$1,088.33 USDC » 20centclub (@tpiliposian, @M3talDrag0n and @Skylice) 
+$665.09 USDC » @superpozycja 
+$616.72 USDC » @zhaojie 
+$393.16 USDC » @ulas 
+$383.76 USDC » @1AutumnLeaf777 
+$295.20 USDC » wasm_it (@rustguy and @0xrex)
+
+🏁 Findings summary
+--------------------------------------
+6 High risk findings
+11 Med risk findings
+48 wardens contributed
+
+Top Hunter: RadiantLabs
+Top Gatherer: RadiantLabs
+Zenith Pool: RadiantLabs
+Audit Catalyst: fcremo
+
+Awards will be distributed on Polygon within the next week. Congratulations all!  💸 💸 💸
+
+⚠️ Awardees, be sure to [complete your tax reporting info](https://docs.code4rena.com/awarding/incentive-model-and-awards/awarding-process#tax-information-for-code4rena-contributors-wardens-judges-etc) if you haven't already. This must be completed within 30 days (i.e. before Thursday, 19 December 2024) to receive your award distribution for this audit.
+
+Please note:
+- If you participated in this audit and don’t see your name on this list, please wait until the report is published and the findings repo is made public to check on your submissions.
+- Also, the leaderboard will be updated with these audit results at a later date.
+
+{Reactions}
+🔥 (8) 
+
+[11/19/2024 23:04] haxatron1
+They never stop :noddinggoat:
+
+{Reactions}
+🔥 (12) coolpepe (2) 💜 
+
+[11/20/2024 02:58] jacobmartin0406
+Another huge win of @EV_om and @3DOC.
+
+
+[11/20/2024 02:58] jacobmartin0406
+I salute you, guys.
+
+{Reactions}
+🙏 (2) 💜 
+
+[11/20/2024 03:32] sin1st3r__
+Insane results. Massive congrats guys @EV_om @3DOC 👏👏👏👏👏
+
+{Reactions}
+🙏 (2) 💜 
+
+[11/20/2024 03:48] g_x_w
+First time auditing, and it was awesome! Great project—super inspiring.
+
+{Reactions}
+👏 (3) 🔥 (4) 🫡 
+
+[11/20/2024 06:53] t1moh
+@EV_om @3DOC Congratulations guys, it's total domination!!!
+
+{Reactions}
+🙏 
+
+[11/20/2024 08:46] _3doc_
+it's been a really nice project to work on indeed. @g_x_w very impressive first contest 🙇‍♂️ and big shout out to @ahmedaghadi, great findings, great reports - the awards this time around didn't fully reflect your remarkable contribution
+
+{Reactions}
+❤️ (8) 👑 (4) ☝️ 
+
+[11/20/2024 09:19] berndt_
+Impressive result guys, you must have found 20+ solo highs 💯  Looking forward to see the report
+
+{Reactions}
+💜 
+
+[11/20/2024 09:55] deadrosesxyz
+@3DOC @EV_om insane performance, congrats
+
+{Reactions}
+💜 (3) 
+
+[11/20/2024 10:13] ahmedaghadi
+Congrats!
+Thanks a lot! Your appreciation really made by day!
+
+{Reactions}
+hi5 
+
+[11/20/2024 10:17] eni7912
+Congrats everyone. I was impressed by the quality of some of your reports, and hope that auditing Kakarot has been a nice experience that was refreshing and a bit different than the usual 😄
+
+{Reactions}
+💜 (11) 
+
+[11/20/2024 22:25] kodak_rome
+congrats all :hi5:
+
+
+[11/30/2024 08:56] _riazul
+When will the leaderboard be updated for this contest
+
+
+[12/02/2024 17:44] thebrittfactor
+This should now be populated!
+
+
+[12/05/2024 23:09] itsmetechjay
+ℹ️ This channel is pending archive.   As a result, any private threads will be permanently deleted 12/13/2024 23:08. Please make sure to grab anything you might need before then.
+
+
+[12/12/2024 12:38] taran_space
+Hello, I've participated in this audit and have submitted a finding. I see that the leaderboard is updated and includes 19 wardens. I don't see my finding approved but I've checked the sponsor's repository and they have incorporated my recommendation: https://github.com/kkrt-labs/kakarot-lib/commit/876daa08cfd23fd5d8c0d8caf1dceb384e9a8461#diff-c4c217053d8fcac7a9bfedb7f083edbe49668be3ddb23f363ce62c9717ed276aL154-R161
+
+How can I learn more about status of my finding?
+
+{Embed}
+https://github.com/kkrt-labs/kakarot-lib/commit/876daa08cfd23fd5d8c0d8caf1dceb384e9a8461
+fix: check data.length and pendingWordLen (#13) · kkrt-labs/kakarot...
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/876daa08cfd23fd5d8c0d8caf1dceb384e9a8461-6A630
+
+
+[12/12/2024 12:40] taran_space
+actually I've found it https://github.com/code-423n4/2024-09-kakarot-findings/issues/86
+
+{Embed}
+https://github.com/code-423n4/2024-09-kakarot-findings/issues/86
+Incorrect ByteArray can be deserialized · Issue #86 · code-423n4/20...
+Lines of code https://github.com/kkrt-labs/kakarot-lib/blob/c2c7cb400f85c3699a6902946bcf4428d5b4fc61/src/CairoLib.sol#L220 https://github.com/kkrt-labs/kakarot-lib/blob/c2c7cb400f85c3699a6902946bcf...
+Code4rena - ARCHIVE-PUBLIC - kakarot-sep27 [1284225362712068238].txt_Files/86-86C0B
+
+
+[12/12/2024 12:40] taran_space
+> Severity: Invalid
+> Comment: This doesn’t change the final output, ie the overall behavior of the function.
+
+
+[12/12/2024 12:41] taran_space
+Are decoder issues always QA?
+
+
+[12/12/2024 12:41] cloudellie
+Hi - it looks like your finding was downgraded to Low risk (QA) but was not in the top 3 QA reports, and was therefore not eligible for awards -- or for inclusion in the report. You can find more info about how QA reports are awarded at Code4rena here: https://docs.code4rena.com/awarding/incentive-model-and-awards/curve-logic
+
+{Embed}
+https://docs.code4rena.com/awarding/incentive-model-and-awards/curve-logic
+Ranked curve model | Code4rena
+
+
+[12/12/2024 12:42] cloudellie
+would suggest posting this question in #🐺・wardens to get broader visibility from the community
+
+
+[12/12/2024 12:43] taran_space
+I think there is a difference when we audit an app and when we audit a library. if I remember correctly, for H/M a specific attack path must be demonstrated, and for library attack path always depends on the app using the library
+
+
+[12/12/2024 18:22] itsmetechjay
+ℹ️ Reminder: this channel will be deleted after 24 hours.
+
+
+==============================================================
+Exported 256 message(s)
+==============================================================
